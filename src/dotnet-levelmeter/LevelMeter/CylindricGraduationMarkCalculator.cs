@@ -25,8 +25,18 @@ public class CylindricGraduationMarkCalculator
         foreach (var setting in GraduationMarkSettings)
             CalculateGraduationMark(marksByVolume, setting, diameter, height, minVolume, maxVolume);
 
-        return marksByVolume.Values.OrderByDescending(m => m.Volume).ToArray();
+        return NormalizePositions(marksByVolume);
     }
+
+    private GraduationMark[] NormalizePositions(Dictionary<Volume, GraduationMark> marksByVolume)
+    {
+        var maxPosition = marksByVolume.Values.Min(m => m.Position.Y) * -1;
+        return marksByVolume.Values
+            .Select(v => v with { Position = (v.Position.X, v.Position.Y + maxPosition) })
+            .OrderBy(v => v.Position.Y)
+            .ToArray();
+    }
+
 
     private void CalculateGraduationMark(Dictionary<Volume, GraduationMark> results, GraduationMarkSettings setting, Length diameter, Length height, Volume minVolume, Volume maxVolume)
     {
@@ -41,7 +51,7 @@ public class CylindricGraduationMarkCalculator
             {
                 Height = Length.From(setting.Height, LengthUnit),
                 Length = Length.From(setting.Length, LengthUnit),
-                Position = (Length.FromMillimeters(setting.Indentation), currentHeight),
+                Position = (Length.FromMillimeters(setting.Indentation), currentHeight * -1),
                 Text = string.Format(setting.TextTemplate, currentVolume.Value),
                 Volume = currentVolume
             };

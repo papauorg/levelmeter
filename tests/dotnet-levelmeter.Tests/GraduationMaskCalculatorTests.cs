@@ -27,8 +27,8 @@ public class CylindricGraduationMarkCalculatorTests
             var result = _metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromMillimeters(10), Volume.Zero, Volume.Zero);
 
             result.Should().HaveCount(2);
-            result.Last().Position.Y.Millimeters.Should().Be(0);
-            result.First().Position.Y.Millimeters.Should().BeApproximately(9.82, 0.01d);
+            result.First().Position.Y.Millimeters.Should().Be(0);
+            result.Last().Position.Y.Millimeters.Should().BeApproximately(9.82, 0.01d);
         }
 
         [Fact]
@@ -53,8 +53,8 @@ public class CylindricGraduationMarkCalculatorTests
         {
             var result = _metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.Zero, Volume.Zero);
 
-            result.First().Position.Y.Millimeters.Should().BeApproximately(335, 1);
-            result.Last().Position.Y.Millimeters.Should().Be(0);
+            result.Last().Position.Y.Millimeters.Should().BeApproximately(335, 1);
+            result.First().Position.Y.Millimeters.Should().Be(0);
             result.Should().HaveCount(35);
         }
     }
@@ -62,6 +62,8 @@ public class CylindricGraduationMarkCalculatorTests
     public class CalculateScaleMethodWithMultipleGraduationMarkSettings : CylindricGraduationMarkCalculatorTests
     {
         private readonly CylindricGraduationMarkCalculator _metricCalculator;
+        private readonly GraduationMark[] _result;
+
 
         public CalculateScaleMethodWithMultipleGraduationMarkSettings()
         {
@@ -80,16 +82,29 @@ public class CylindricGraduationMarkCalculatorTests
             };
 
             _metricCalculator = new CylindricGraduationMarkCalculator([halfLiterSettings, settings], LengthUnit.Millimeter, VolumeUnit.Liter);
+            
+            _result = _metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.Zero, Volume.Zero);
         }
 
         [Fact]
         public void ProducesCorrectScaleForSampleContainer()
         {
-            var result = _metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.Zero, Volume.Zero);
+            _result.Last().Position.Y.Millimeters.Should().BeApproximately(335, 1);
+            _result.First().Position.Y.Millimeters.Should().Be(0);
+            _result.Should().HaveCount(69);
+        }
 
-            result.First().Position.Y.Millimeters.Should().BeApproximately(335, 1);
-            result.Last().Position.Y.Millimeters.Should().Be(0);
-            result.Should().HaveCount(69);
+        [Fact]
+        public void GraduationMarksAreEquallySpaced()
+        {
+            var spacingPerLiterInMm = 9.82d;
+            var spacingPerHalfLiterInMm = spacingPerLiterInMm / 2;
+
+            for (var i = 1; i < _result.Length; ++i)
+            {
+                var spacing = _result[i].Position.Y - _result[i - 1].Position.Y;
+                spacing.Millimeters.Should().BeApproximately(spacingPerHalfLiterInMm, 0.1, $"because the item {i} should be half a liter away from its previous item.");
+            }
         }
     }
 }

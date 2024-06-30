@@ -11,7 +11,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/src/dotnet-levelmeter/bin/Debug/net8.0/dotnet-levelmeter.dll",
-            "args": ["--diameter", "360", "--height", "300", "--output", "test.svg"],
+            "args": ["--diameter", "360", "--height", "335", "--output", "test.svg"],
             "cwd": "${workspaceFolder}/src/dotnet-levelmeter",
             "console": "internalConsole",
             "stopAtEntry": false,
