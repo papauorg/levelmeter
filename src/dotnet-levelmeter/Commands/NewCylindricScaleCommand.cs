@@ -12,26 +12,21 @@ public class NewCylindricScaleCommand
 
     public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
-        GraduationMarkSettings[] graduationMarkSettings = [
-            new GraduationMarkSettings { Interval = 0.5d, Length = 5, Height = 1, TextTemplate = "" },
-            new GraduationMarkSettings { TextTemplate = "{0}l", Height = 1.5 }
-        ];
-
-        var calculator = new CylindricGraduationMarkCalculator(graduationMarkSettings, LengthUnit.Millimeter, VolumeUnit.Liter);
+        var calculator = new CylindricGraduationMarkCalculator(Options.GraduationMarkSettings, Options.GetLengthUnit(), Options.GetVolumeUnit());
         var graduationMarks = calculator.CalculateScale(
-            Length.FromMillimeters(Options.DiameterInMm), 
-            Length.FromMillimeters(Options.HeightInMm), 
-            Volume.FromLiters(Options.MinVolume),
-            Volume.FromLiters(Options.MaxVolume));
+            Options.GetDiameter(), 
+            Options.GetHeight(), 
+            Options.GetMinVolume(),
+            Options.GetMaxVolume());
 
         Stream outputStream;
-        if (string.IsNullOrWhiteSpace(Options.OutputFile))
+        if (string.IsNullOrWhiteSpace(Options.Output))
         {
             outputStream = Console.OpenStandardOutput();
         }
         else
         {
-            outputStream = new FileStream(Options.OutputFile, FileMode.Create, FileAccess.Write, FileShare.Read);
+            outputStream = new FileStream(Options.Output, FileMode.Create, FileAccess.Write, FileShare.Read);
             outputStream.SetLength(0); // make sure to overwrite if already exists
         }
 
