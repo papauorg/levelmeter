@@ -37,5 +37,5 @@ public record GraduationMark
     /// <summary>
     /// Font size for written text.
     /// </summary>
-    public double FontSize { get; init; } = 3;
+    public double FontSize { get; init; } = 7;
 }
