@@ -107,4 +107,32 @@ public class CylindricGraduationMarkCalculatorTests
             }
         }
     }
+
+    public class CalculateScaleMethodImperial : CylindricGraduationMarkCalculatorTests
+    {
+        private readonly CylindricGraduationMarkCalculator _imperialCalculator;
+        private readonly GraduationMark[] _result;
+
+
+        public CalculateScaleMethodImperial()
+        {
+            var settings = new GraduationMarkSettings
+            {
+                Interval = 1, // 1 galon marks
+                TextTemplate = "{0} gal",
+            };
+
+            _imperialCalculator = new CylindricGraduationMarkCalculator([settings], LengthUnit.Inch, VolumeUnit.UsGallon);
+            
+            _result = _imperialCalculator.CalculateScale(Length.FromMillimeters(360).ToUnit(LengthUnit.Inch), Length.FromCentimeters(33.5).ToUnit(LengthUnit.Inch), Volume.Zero, Volume.Zero);
+        }
+
+        [Fact]
+        public void ReturnsCorrectAmountOfGallons()
+        {
+            _result.Should().HaveCount(10);
+            _result.First().Volume.Should().Be(Volume.FromUsGallons(9));
+            _result.Last().Volume.Should().Be(Volume.FromUsGallons(0));
+        }
+    }
 }
