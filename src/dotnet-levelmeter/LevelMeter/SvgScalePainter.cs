@@ -50,13 +50,6 @@ public class SvgScalePainter
         var markerPos = new Point(mark.Position.X.Value, mark.Position.Y.Value - (mark.Height.Value / 2));
         var markerSize = new Size(mark.Length.Value, mark.Height.Value);
         scale.Graphics.FillRectangle(markerPos, markerSize, Colours.Black, "mark" + mark.Volume.ToString());
-        
-        // debug
-        /*
-        var path = new GraphicsPath();
-        path.MoveTo(mark.Position.X.Millimeters, mark.Position.Y.Millimeters).LineTo(new Point(mark.Position.X.Millimeters + 10, mark.Position.Y.Millimeters));
-        scale.Graphics.StrokePath(path, Colours.Red, 0.1f);
-        */
 
         if (!string.IsNullOrWhiteSpace(mark.Text))
         {
