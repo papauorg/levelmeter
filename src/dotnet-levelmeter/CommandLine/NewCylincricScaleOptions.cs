@@ -10,13 +10,13 @@ public record NewCylincricScaleOptions
     private LengthUnit _lengthUnit = UnitsNet.Units.LengthUnit.Millimeter;
 
 
-    [Option('d', "diameter", Required = true, HelpText = "Diameter of your container in millimeters.")]
+    [Option('d', "diameter", HelpText = "Diameter of your container in millimeters.")]
     public double Diameter { get; init; }
 
     [Option("min-volume", HelpText = "Min value for the volume scale to begin.")]
     public int MinVolume { get; init; } = 0;
 
-    [Option('h', "height", Required = true, HelpText = "Maximum height of the scale to create.")]
+    [Option('h', "height", HelpText = "Maximum height of the scale to create.")]
     public double Height { get; init; }
 
     [Option('o', "output", HelpText = "Defines the file to output the svg to. Otherwise it's printed to stdout.")]
@@ -41,6 +41,8 @@ public record NewCylincricScaleOptions
         get => Volume.GetAbbreviation(_volumeUnit);
         init => _volumeUnit = Volume.ParseUnit(value);
     }
+    
+    public GraduationMarkSettings[] GraduationMarkSettings { get; init; } = [];
 
     internal Volume GetMinVolume() => Volume.From(MinVolume, _volumeUnit);
     internal Volume GetMaxVolume() => Volume.From(MaxVolume, _volumeUnit);
@@ -49,5 +51,12 @@ public record NewCylincricScaleOptions
     internal LengthUnit GetLengthUnit() => _lengthUnit;
     internal VolumeUnit GetVolumeUnit() => _volumeUnit;
 
-    public GraduationMarkSettings[] GraduationMarkSettings { get; init; } = [ new GraduationMarkSettings() ];
+    internal void Validate()
+    {
+        if (Diameter <= 0)
+            throw new ArgumentOutOfRangeException(nameof(Diameter), Diameter, "Diameter is required and must be positive");
+
+        if (GraduationMarkSettings?.Any() != true)
+            throw new ArgumentException("Specify at least one graduation mark setting by providing a config file or environment variables.", nameof(GraduationMarkSettings));
+    }
 }

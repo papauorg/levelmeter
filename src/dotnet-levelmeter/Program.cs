@@ -3,17 +3,17 @@
 using Microsoft.Extensions.Configuration;
 
 
+var result = await Parser.Default.ParseArguments<NewCylincricScaleOptions>(args)
+.WithParsedAsync<NewCylincricScaleOptions>(async o =>
+{
+    o = ApplyAdditionalConfig<NewCylincricScaleOptions>(o.ConfigFile, o);
+    o.Validate();
+    var command = new NewCylindricScaleCommand(o);
+    await command.InvokeAsync(CancellationToken.None);
+});
 
-var result = Parser.Default.ParseArguments<NewCylincricScaleOptions>(args)
-    .WithParsedAsync<NewCylincricScaleOptions>(async o =>
-    {
-        o = o with { GraduationMarkSettings = GetGraduationMarkSettings(o.GraduationMarkSettings, o.ConfigFile, o) };
-        var command = new NewCylindricScaleCommand(o);
-        await command.InvokeAsync(CancellationToken.None);
-    });
 
-
-static GraduationMarkSettings[] GetGraduationMarkSettings(GraduationMarkSettings[] settings, string configPath, object options)
+static T ApplyAdditionalConfig<T>(string configPath, object options)
 {
     var builder = new ConfigurationBuilder()
         .SetBasePath(Path.Combine(AppContext.BaseDirectory));
@@ -24,7 +24,7 @@ static GraduationMarkSettings[] GetGraduationMarkSettings(GraduationMarkSettings
     builder.AddEnvironmentVariables();
 
     var config = builder.Build();
-    config.GetSection("levelmeter").Bind(options); // overwrite defaults
+    config.GetSection("scale-config").Bind(options); // overwrite defaults
 
-    return settings;
+    return (T)options;
 }

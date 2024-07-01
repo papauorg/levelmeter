@@ -11,8 +11,8 @@
             "request": "launch",
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/src/dotnet-levelmeter/bin/Debug/net8.0/dotnet-levelmeter.dll",
-            "args": ["--diameter", "360", "--height", "335", "--min-volume", "1", "--max-volume", "30", "--output", "test.svg"],
-            "cwd": "${workspaceFolder}/src/dotnet-levelmeter",
+            "args": ["--config", "${workspaceFolder}/scales/definitions/cylinder_d360_h335_1-30l_step0.5.json"],
+            "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopAtEntry": false,
             "logging": {

@@ -26,6 +26,10 @@ public class NewCylindricScaleCommand
         }
         else
         {
+            // Ensure target directory exists
+            var targetDir = Path.GetDirectoryName(Options.Output);
+            Directory.CreateDirectory(targetDir!);
+
             outputStream = new FileStream(Options.Output, FileMode.Create, FileAccess.Write, FileShare.Read);
             outputStream.SetLength(0); // make sure to overwrite if already exists
         }
