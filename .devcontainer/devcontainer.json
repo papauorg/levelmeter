@@ -10,7 +10,7 @@
 		"vscode": {
 			"extensions": [
 				"SimonSiefke.svg-preview",
-				"ms-dotnettools.csdevkit"
+				"vitaliymaz.vscode-svg-previewer"
 			]
 		}
 	}

@@ -19,7 +19,7 @@ public record NewCylincricScaleOptions
     [Option('h', "height", HelpText = "Maximum height of the scale to create.")]
     public double Height { get; init; }
 
-    [Option('o', "output", HelpText = "Defines the file to output the svg to. Otherwise it's printed to stdout.")]
+    [Option('o', "output", HelpText = "Defines the file to output the svg to. Otherwise it's printed to stdout. Use {0} placeholder for config file name.")]
     public string Output { get; init; } = string.Empty;
     
     [Option("max-volume", HelpText = "Max value for the volume on the scale. Can be used to skip volumes that would be possible for the container height.")]
