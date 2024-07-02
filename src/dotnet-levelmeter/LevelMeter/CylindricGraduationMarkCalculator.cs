@@ -45,11 +45,20 @@ public class CylindricGraduationMarkCalculator
     {
         maxVolume = GetMaximumScaleVolume(diameter, height, maxVolume);
 
-        var currentVolume = minVolume.ToUnit(VolumeUnit);
-        var currentHeight = GetHeightByVolume(currentVolume, diameter);
-
-        while (currentVolume <= maxVolume)
+        var volInterval = Volume.From(setting.Interval, VolumeUnit);
+        for (var currentVolume = Volume.From(0, VolumeUnit); currentVolume <= maxVolume; currentVolume += volInterval)
         {
+            if (currentVolume < minVolume)
+                continue;
+
+            if (currentVolume.Value % volInterval.Value != 0)
+                continue;
+            
+            var currentHeight = GetHeightByVolume(currentVolume, diameter);
+
+            if (currentHeight > height)
+                break;
+
             var mark = new GraduationMark
             {
                 Height = Length.From(setting.Height, LengthUnit),
@@ -61,9 +70,6 @@ public class CylindricGraduationMarkCalculator
             };
 
             results[currentVolume] = mark;
-
-            currentVolume += Volume.From(setting.Interval, VolumeUnit);
-            currentHeight = GetHeightByVolume(currentVolume, diameter);
         }
     }
 

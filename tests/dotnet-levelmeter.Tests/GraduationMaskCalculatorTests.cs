@@ -61,6 +61,42 @@ public class CylindricGraduationMarkCalculatorTests
             result.First().Position.Y.Millimeters.Should().Be(0);
             result.Should().HaveCount(35);
         }
+     }
+
+    public class CalculateScaleMethodIrregularStart : CylindricGraduationMarkCalculatorTests
+    {
+        private readonly GraduationMark[] _result;
+        private const int INTERVAL = 1;
+        public CalculateScaleMethodIrregularStart()
+        {
+            var settings = new GraduationMarkSettings
+            {
+                Interval = INTERVAL, // 1 liter marks
+                TextTemplate = "{0} l",
+            };
+
+            var metricCalculator = new CylindricGraduationMarkCalculator([settings], LengthUnit.Millimeter, VolumeUnit.Liter);
+            
+            _result = metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.FromMilliliters(1), Volume.FromLiters(10));
+        }
+
+        [Fact]
+        public void DoesNotContainVolumesThatAreNotDevidableByTheInterval()
+        {
+            _result.Should().NotContain(m => (m.Volume.Value % INTERVAL) != 0);
+        }
+
+        [Fact]
+        public void ContainsExactlyTheMaximumVolumeAsAnGraduationMark()
+        {
+            _result.Select(m => m.Volume).Max().Should().Be(Volume.FromLiters(10));
+        }
+
+        [Fact]
+        public void StartsWithTheNextDevidableVolumeAmount()
+        {
+            _result.Select(m => m.Volume).Min().Should().Be(Volume.FromLiters(1)); // not 0.1 and not 0
+        }
     }
 
     public class CalculateScaleMethodWithMultipleGraduationMarkSettings : CylindricGraduationMarkCalculatorTests

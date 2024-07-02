@@ -14,7 +14,7 @@ public record NewCylincricScaleOptions
     public double Diameter { get; init; }
 
     [Option("min-volume", HelpText = "Min value for the volume scale to begin.")]
-    public int MinVolume { get; init; } = 0;
+    public double MinVolume { get; init; } = 0;
 
     [Option('h', "height", HelpText = "Maximum height of the scale to create.")]
     public double Height { get; init; }
@@ -23,7 +23,7 @@ public record NewCylincricScaleOptions
     public string Output { get; init; } = string.Empty;
     
     [Option("max-volume", HelpText = "Max value for the volume on the scale. Can be used to skip volumes that would be possible for the container height.")]
-    public int MaxVolume { get; init; } = 0;
+    public double MaxVolume { get; init; } = 0;
 
     [Option('c', "config", HelpText = "Path to configuration file (.json) that contains settings for graduation marks and the command line args of this help page.")]
     public string ConfigFile { get; init; } = string.Empty;
