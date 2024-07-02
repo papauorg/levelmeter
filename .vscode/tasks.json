@@ -15,6 +15,29 @@
                 "reveal": "silent"
             },
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Format code",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "format"
+            ],
+            "group": "none",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        },
+        {
+            "label": "Rebuild All Scales",
+            "type": "shell",
+            "command": "find ~+/scales/definitions/*.json | xargs -I % dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %",
+            "problemMatcher": []
         }
     ]
 }
