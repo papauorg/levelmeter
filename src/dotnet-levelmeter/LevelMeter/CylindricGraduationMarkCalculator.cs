@@ -1,7 +1,10 @@
 using System.Drawing;
+using System.Runtime.CompilerServices;
 
 using UnitsNet;
 using UnitsNet.Units;
+
+namespace Papau.Levelmeter.LevelMeter;
 
 public class CylindricGraduationMarkCalculator
 {
@@ -28,7 +31,7 @@ public class CylindricGraduationMarkCalculator
         return NormalizePositions(marksByVolume);
     }
 
-    private GraduationMark[] NormalizePositions(Dictionary<Volume, GraduationMark> marksByVolume)
+    private static GraduationMark[] NormalizePositions(Dictionary<Volume, GraduationMark> marksByVolume)
     {
         var maxPosition = marksByVolume.Values.Min(m => m.Position.Y) * -1;
         return marksByVolume.Values
@@ -52,8 +55,9 @@ public class CylindricGraduationMarkCalculator
                 Height = Length.From(setting.Height, LengthUnit),
                 Length = Length.From(setting.Length, LengthUnit),
                 Position = (Length.FromMillimeters(setting.Indentation), currentHeight * -1),
-                Text = string.Format(setting.TextTemplate, currentVolume.Value),
-                Volume = currentVolume
+                Text = PrepareText(setting, currentVolume, maxVolume),
+                Volume = currentVolume,
+                Font = setting.Font
             };
 
             results[currentVolume] = mark;
@@ -62,6 +66,15 @@ public class CylindricGraduationMarkCalculator
             currentHeight = GetHeightByVolume(currentVolume, diameter);
         }
     }
+
+    private static string PrepareText(GraduationMarkSettings setting, Volume currentVolume, Volume maxVolume)
+    {
+        var volumeValue = currentVolume.Value;
+        var abbreviation = Volume.GetAbbreviation(currentVolume.Unit);
+
+        return string.Format(setting.TextTemplate, volumeValue, abbreviation);
+    }
+
 
     private Volume GetMaximumScaleVolume(Length diameter, Length height, Volume maxVolume)
     {

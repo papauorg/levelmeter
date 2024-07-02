@@ -1,5 +1,6 @@
-using UnitsNet;
-using UnitsNet.Units;
+using Papau.Levelmeter.LevelMeter;
+
+namespace Papau.Levelmeter.Commands;
 
 public class NewCylindricScaleCommand
 {

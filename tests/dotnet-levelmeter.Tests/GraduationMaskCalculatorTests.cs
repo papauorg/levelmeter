@@ -1,7 +1,11 @@
 using FluentAssertions;
 
+using Papau.Levelmeter.LevelMeter;
+
 using UnitsNet;
 using UnitsNet.Units;
+
+namespace Papau.Levelmeter.Tests;
 
 public class CylindricGraduationMarkCalculatorTests
 {
