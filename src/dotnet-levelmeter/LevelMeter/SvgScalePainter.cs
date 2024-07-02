@@ -24,10 +24,10 @@ public class SvgScalePainter
         var scaleSize = svgPage.Graphics.GetBounds();
 
         // calculate padding
-        var scalePadding = scaleSize.Size.Width / 100 * 30;
+        var heightPadding = scaleSize.Size.Width / 2;
+        var widthPadding = scaleSize.Size.Width / 100 * 30;
 
-        svgPage.Graphics.Translate(scalePadding / -2, scalePadding * -1);
-        svgPage.Graphics.StrokeRectangle(0, 0, scaleSize.Size.Width + scalePadding, scaleSize.Size.Height + scalePadding, Colours.Black, 0.01);
+        svgPage.Graphics.StrokeRectangle(widthPadding * -1, heightPadding * -1, scaleSize.Size.Width + 2 * widthPadding, scaleSize.Size.Height + 2 * heightPadding, Colours.Black, 0.01);
         svgPage.Crop();
         scaleSize = svgPage.Graphics.GetBounds();
 
