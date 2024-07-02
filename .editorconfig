@@ -23,6 +23,7 @@ insert_final_newline = false
 
 #### .NET Coding Conventions ####
 [*.{cs,vb}]
+charset=utf-8
 
 # Organize usings
 dotnet_separate_import_directive_groups = true

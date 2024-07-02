@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 
 using Microsoft.Extensions.Configuration;
 
@@ -9,7 +9,7 @@ var result = await Parser.Default.ParseArguments<NewCylincricScaleOptions>(args)
 .WithParsedAsync<NewCylincricScaleOptions>(async o =>
 {
     o = ApplyAdditionalConfig<NewCylincricScaleOptions>(o.ConfigFile, o);
-    
+
     if (!string.IsNullOrWhiteSpace(o.Output) && !string.IsNullOrWhiteSpace(o.ConfigFile))
         o = o with { Output = string.Format(o.Output, Path.GetFileNameWithoutExtension(o.ConfigFile)) };
 
@@ -23,7 +23,7 @@ static T ApplyAdditionalConfig<T>(string configPath, T options)
 {
     var builder = new ConfigurationBuilder()
         .SetBasePath(Path.Combine(AppContext.BaseDirectory));
-    
+
     if (!string.IsNullOrWhiteSpace(configPath))
     {
         builder.AddJsonFile(configPath, optional: false);

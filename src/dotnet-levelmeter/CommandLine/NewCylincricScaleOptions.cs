@@ -21,7 +21,7 @@ public record NewCylincricScaleOptions
 
     [Option('o', "output", HelpText = "Defines the file to output the svg to. Otherwise it's printed to stdout. Use {0} placeholder for config file name.")]
     public string Output { get; init; } = string.Empty;
-    
+
     [Option("max-volume", HelpText = "Max value for the volume on the scale. Can be used to skip volumes that would be possible for the container height.")]
     public double MaxVolume { get; init; } = 0;
 
@@ -29,19 +29,19 @@ public record NewCylincricScaleOptions
     public string ConfigFile { get; init; } = string.Empty;
 
     [Option('l', "length-unit", HelpText = "Unit of length for the given measurements. (Default: mm)")]
-    public string LengthUnit 
-    { 
-        get => Length.GetAbbreviation(_lengthUnit); 
-        init => _lengthUnit = Length.ParseUnit(value); 
+    public string LengthUnit
+    {
+        get => Length.GetAbbreviation(_lengthUnit);
+        init => _lengthUnit = Length.ParseUnit(value);
     }
-    
+
     [Option('v', "volume-unit", Default = "l", HelpText = "Unit of volume for the given measurements and output on scale. (Default: l)")]
     public string VolumeUnit
-    { 
+    {
         get => Volume.GetAbbreviation(_volumeUnit);
         init => _volumeUnit = Volume.ParseUnit(value);
     }
-    
+
     public GraduationMarkSettings[] GraduationMarkSettings { get; init; } = [];
 
     internal Volume GetMinVolume() => Volume.From(MinVolume, _volumeUnit);

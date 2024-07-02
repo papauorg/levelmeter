@@ -61,7 +61,7 @@ public class CylindricGraduationMarkCalculatorTests
             result.First().Position.Y.Millimeters.Should().Be(0);
             result.Should().HaveCount(35);
         }
-     }
+    }
 
     public class CalculateScaleMethodIrregularStart : CylindricGraduationMarkCalculatorTests
     {
@@ -76,7 +76,7 @@ public class CylindricGraduationMarkCalculatorTests
             };
 
             var metricCalculator = new CylindricGraduationMarkCalculator([settings], LengthUnit.Millimeter, VolumeUnit.Liter);
-            
+
             _result = metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.FromMilliliters(1), Volume.FromLiters(10));
         }
 
@@ -122,7 +122,7 @@ public class CylindricGraduationMarkCalculatorTests
             };
 
             _metricCalculator = new CylindricGraduationMarkCalculator([halfLiterSettings, settings], LengthUnit.Millimeter, VolumeUnit.Liter);
-            
+
             _result = _metricCalculator.CalculateScale(Length.FromMillimeters(360), Length.FromCentimeters(33.5), Volume.Zero, Volume.Zero);
         }
 
@@ -163,7 +163,7 @@ public class CylindricGraduationMarkCalculatorTests
             };
 
             _imperialCalculator = new CylindricGraduationMarkCalculator([settings], LengthUnit.Inch, VolumeUnit.UsGallon);
-            
+
             _result = _imperialCalculator.CalculateScale(Length.FromMillimeters(360).ToUnit(LengthUnit.Inch), Length.FromCentimeters(33.5).ToUnit(LengthUnit.Inch), Volume.Zero, Volume.Zero);
         }
 

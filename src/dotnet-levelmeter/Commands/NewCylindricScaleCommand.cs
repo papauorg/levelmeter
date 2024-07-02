@@ -15,8 +15,8 @@ public class NewCylindricScaleCommand
     {
         var calculator = new CylindricGraduationMarkCalculator(Options.GraduationMarkSettings, Options.GetLengthUnit(), Options.GetVolumeUnit());
         var graduationMarks = calculator.CalculateScale(
-            Options.GetDiameter(), 
-            Options.GetHeight(), 
+            Options.GetDiameter(),
+            Options.GetHeight(),
             Options.GetMinVolume(),
             Options.GetMaxVolume());
 

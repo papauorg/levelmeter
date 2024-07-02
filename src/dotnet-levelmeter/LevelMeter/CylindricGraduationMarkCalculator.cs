@@ -53,7 +53,7 @@ public class CylindricGraduationMarkCalculator
 
             if (currentVolume.Value % volInterval.Value != 0)
                 continue;
-            
+
             var currentHeight = GetHeightByVolume(currentVolume, diameter);
 
             if (currentHeight > height)
@@ -89,7 +89,7 @@ public class CylindricGraduationMarkCalculator
             maxVolume = maximumVolumeByHeight;
         else
             maxVolume = maximumVolumeByHeight > maxVolume ? maxVolume : maximumVolumeByHeight;
-        
+
         return maxVolume.ToUnit(VolumeUnit);
     }
 
