@@ -1,0 +1,67 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/levelmeter
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v2
+      - name: Prepare docker image and tag names
+        id: prep
+        run: |
+
+          IMAGE_NAME_LOWERCASE=${IMAGE_NAME,,}
+          echo "Using image name $IMAGE_NAME_LOWERCASE"
+
+          PUBLISH_IMAGE=false
+          TAGS="$IMAGE_NAME_LOWERCASE:dev"
+
+          echo "tags: $TAGS"
+          echo "publish_image: $PUBLISH_IMAGE"
+          echo "tags=$TAGS" >> $GITHUB_OUTPUT
+          echo "publish_image=$PUBLISH_IMAGE" >> $GITHUB_OUTPUT
+
+      - uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: "Dockerfile"
+          tags: ${{ steps.prep.outputs.tags }}
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+          labels: |
+            org.opencontainers.image.title=${{ github.event.repository.name }}
+            org.opencontainers.image.description=${{ github.event.repository.description }}
+            org.opencontainers.image.url=${{ github.event.repository.html_url }}
+            org.opencontainers.image.revision=${{ github.sha }}
+      - name: Validate json schemas
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ steps.prep.outputs.tags }}
+          options: -v ${{ github.workspace }}:/workspaces/levelmeter
+          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/*.json | xargs -I % check-jsonschema % --schemafile /workspaces/levelmeter/scales/definitions/schemas/scale-config
+      - name: Build and test
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ steps.prep.outputs.tags }}
+          options: -v ${{ github.workspace }}:/workspaces/levelmeter
+          run: cd /workspaces/levelmeter && dotnet build --configuration=Release && dotnet test --configuration=Release
+      - name: Test recreating all cylinder definitions
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ${{ steps.prep.outputs.tags }}
+          options: -v ${{ github.workspace }}:/workspaces/levelmeter
+          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/cylinder*.json | xargs -I % dotnet run --project /workspaces/levelmeter/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %
