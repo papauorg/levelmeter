@@ -44,6 +44,27 @@
             "type": "shell",
             "command": "find ~+/scales/definitions/*.json | xargs -I % check-jsonschema % --schemafile ~+/scales/definitions/schemas/scale-config",
             "problemMatcher": []
+        },
+        {
+            "label": "Generate scale",
+            "type": "shell",
+            "command": "dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c ${input:definitionFile}",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "definitionFile",
+            "type": "command",
+            "command": "extension.commandvariable.file.pickFile",
+            "args": {
+                "fromFolder": {
+                    "fixed": "${workspaceFolder}/scales/definitions"
+                },
+                "include": "**/*.json",
+                "description": "Select a scale definition file.",
+                "display": "fileName"
+            }
         }
     ]
 }

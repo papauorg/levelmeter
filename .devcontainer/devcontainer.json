@@ -10,7 +10,8 @@
 		"vscode": {
 			"extensions": [
 				"SimonSiefke.svg-preview",
-				"vitaliymaz.vscode-svg-previewer"
+				"vitaliymaz.vscode-svg-previewer",
+				"rioj7.command-variable"
 			]
 		}
 	}
