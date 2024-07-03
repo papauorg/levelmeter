@@ -9,8 +9,9 @@
         "minVolume": 1,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
-        "description": "Scale for 360mm diameter cylindric container 1-30l",
+        "description": "Scale for 360mm diameter cylindric container 1-30l in half liter intervals with text every liter.",
         "sucessfullyAppliedTo": "",
+        "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
                 "interval": 0.5,

@@ -9,8 +9,9 @@
         "minVolume": 0.1,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
-        "description": "Scale for 360mm diameter cylindric container 1-9gal",
+        "description": "Scale for 360mm diameter cylindric container 1-9gal in gal intervals.",
         "sucessfullyAppliedTo": "-",
+        "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
                 "interval": 1,
