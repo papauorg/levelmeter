@@ -11,6 +11,7 @@
         "output": "./scales/svgs/{0}.svg",
         "description": "",
         "sucessfullyAppliedTo": "",
+        "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
                 "font": {

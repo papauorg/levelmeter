@@ -60,6 +60,11 @@
           "type": "string",
           "description": "Can be used as information if the scale has successfully been applied to a container and seen as correct."
         },
+        "requiresTransferTape": {
+          "type": "boolean",
+          "description": "Defines if the scale needs a transfer tape to be applied. This mostly depends on the used font for the volume texts. Stencil fonts usually won't require a transfer tape.",
+          "default": false
+        },
         "graduationMarkSettings": {
           "type": "array",
           "title": "Graduation mark settings",
