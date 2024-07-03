@@ -38,6 +38,8 @@ public class NewCylindricScaleCommand
         var painter = new SvgScalePainter();
         await painter.PaintAsync(graduationMarks, outputStream, cancellationToken).ConfigureAwait(false);
 
+        await Console.Error.WriteLineAsync("Finished!").ConfigureAwait(false);
+
         return 0;
     }
 }

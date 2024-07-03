@@ -4,30 +4,20 @@
         "containerForm": "cylinder",
         "lengthUnit": "mm",
         "volumeUnit": "l",
-        "diameter": 360,
-        "height": 335,
-        "minVolume": 0.1,
+        "diameter": 0,
+        "height": 0,
+        "minVolume": 1,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
-        "description": "Scale for 360mm diameter cylindric container 1-30l",
+        "description": "",
         "sucessfullyAppliedTo": "",
         "graduationMarkSettings": [
             {
-                "interval": 1,
-                "length": 7,
-                "height": 1,
-                "indentation": 0,
-                "textTemplate": ""
-            },
-            {
-                "interval": 5,
-                "length": 24,
-                "height": 1.25,
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
                     "size": 8,
-                    "offsetX": -2,
-                    "offsetY": -5,
+                    "offsetX": 13,
+                    "offsetY": 0,
                     "textAlignment": "Right"
                 }
             }

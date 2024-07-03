@@ -4,5 +4,13 @@
             "background": "#ffffff"
         }
     },
-    "svgPreview.autoOpen": false
+    "svgPreview.autoOpen": false,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "scales/definitions/*.json"
+            ],
+            "url": "scales/definitions/schemas/scale-config"
+        }
+    ]
 }

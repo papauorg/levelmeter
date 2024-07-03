@@ -1,15 +1,16 @@
 {
+    "$schema": "./schemas/scale-config",
     "scale-config": {
         "containerForm": "cylinder",
         "lengthUnit": "mm",
-        "volumUnit": "l",
+        "volumeUnit": "l",
         "diameter": 360,
         "height": 335,
         "minVolume": 1,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
         "description": "Scale for 360mm diameter cylindric container 1-30l",
-        "sucessfullyAppliedTo": "-",
+        "sucessfullyAppliedTo": "",
         "graduationMarkSettings": [
             {
                 "interval": 0.5,

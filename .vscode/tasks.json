@@ -34,9 +34,15 @@
             }
         },
         {
-            "label": "Rebuild All Scales",
+            "label": "Rebuild All Cylindric Scales",
             "type": "shell",
-            "command": "find ~+/scales/definitions/*.json | xargs -I % dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %",
+            "command": "find ~+/scales/definitions/cylinder*.json | xargs -I % dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %",
+            "problemMatcher": []
+        },
+        {
+            "label": "Check scales json schema",
+            "type": "shell",
+            "command": "find ~+/scales/definitions/*.json | xargs -I % check-jsonschema % --schemafile ~+/scales/definitions/schemas/scale-config",
             "problemMatcher": []
         }
     ]

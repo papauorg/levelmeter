@@ -10,7 +10,7 @@ public record NewCylincricScaleOptions
     private LengthUnit _lengthUnit = UnitsNet.Units.LengthUnit.Millimeter;
 
 
-    [Option('d', "diameter", HelpText = "Diameter of your container in millimeters.")]
+    [Option('d', "diameter", HelpText = "Diameter of your container.")]
     public double Diameter { get; init; }
 
     [Option("min-volume", HelpText = "Min value for the volume scale to begin.")]

@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Scale configuration",
+  "description": "Detailed configuration to create and present scales for liquids in containers.",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "scale-config": {
+      "type": "object",
+      "title": "Scale configuration",
+      "description": "Detailed configuration to create and present scales for liquids in containers.",
+      "properties": {
+        "containerForm": {
+          "type": "string",
+          "enum":  ["cylinder"],
+          "default": "cylinder",
+          "description": "Defines the container form. Currently only containers of type 'cylinder' can be automatically created."
+        },
+        "lengthUnit": {
+          "type": "string",
+          "enum": ["mm", "cm", "in"],
+          "description": "Unit of length for the given measurements."
+        },
+        "volumeUnit": {
+          "type": "string",
+          "enum": ["l", "gal (U.S.)"],
+          "description": "Unit of volume for the given measurements and output on scale."
+        },
+        "diameter": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Diameter of the container."
+        },
+        "height": {
+          "type": "integer",
+          "description": "Height of the container"
+        },
+        "minVolume": {
+          "type": "number",
+          "default": 0,
+          "description": "Minimum volume for the scale to begin with."
+        },
+        "maxVolume": {
+          "type": "integer",
+          "description": "Maximum volume for the scale."
+        },
+        "output": {
+          "type": "string",
+          "description": "File to which the svg scale will be saved. Leave empty for stdout."
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000,
+          "minLength": 1,
+          "description": "Description field for displaying infos about the scale on the website."
+        },
+        "sucessfullyAppliedTo": {
+          "type": "string",
+          "description": "Can be used as information if the scale has successfully been applied to a container and seen as correct."
+        },
+        "graduationMarkSettings": {
+          "type": "array",
+          "title": "Graduation mark settings",
+          "description": "Contains configuration for defining how the graduation marks of the scale will be created. Multiple mark settings can apply. The last one wins.",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "interval": {
+                  "type": "number",
+                  "default": 1,
+                  "description": "Describes in which volume interval the graduation marks will appear on the scale."
+                },
+                "length": {
+                  "type": "number",
+                  "description": "Defines the length of the graduation mark in the defined length unit of the scale."
+                },
+                "height": {
+                  "type": "number",
+                  "description": "Defines the height of the graduation mark in the defined length unit of the scale."
+                },
+                "indentation": {
+                  "type": "number",
+                  "description": "Defines the indentation of the graduation mark in the defined length unit of the scale."
+                },
+                "textTemplate": {
+                  "type": "string",
+                  "default": "{0} {1}",
+                  "description": "Text template that will be printed along with the graduation mark. Can be used for e.g. the volume. Placeholders are {0} for the Volume and {1} for the official volume unit abbreviation."
+                },
+                "font": {
+                  "type": "object",
+                  "description": "Defines the font settings for the text template.",
+                  "properties": {
+                    "family": {
+                      "type": "string",
+                      "description": "Defines the font family in which the scale should be created. Can either be the name of an installed font or the path to a TrueType font file."
+                    },
+                    "size": {
+                      "type": "number",
+                      "description": "Font size"
+                    },
+                    "offsetX": {
+                      "type": "number",
+                      "description": "Defines the offset to which the text of the graduation mark will be moved horizontally in the defined length unit of the scale."
+
+                    },
+                    "offsetY": {
+                      "type": "number",
+                      "description": "Defines the offset to which the text of the graduation mark will be moved vertically in the defined length unit of the scale."
+                    },
+                    "textAlignment": {
+                      "type": "string",
+                      "enum": ["Left", "Center", "Right"],
+                      "description": "Defines the text alignment."
+                    }
+                  },
+                  "required": [
+                    "family",
+                    "size",
+                    "textAlignment"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "containerForm",
+        "lengthUnit",
+        "volumeUnit",
+        "diameter",
+        "height",
+        "description",
+        "sucessfullyAppliedTo",
+        "graduationMarkSettings"
+      ]
+    }
+  },
+  "required": [
+    "scale-config"
+  ]
+}
