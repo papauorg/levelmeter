@@ -11,8 +11,17 @@ This repository contains a collection of svg graphics that can be used to etch s
 to easily identify how much liquid they contain. This is very useful for e.g. homebrewing. Also there is a small helper tool to create
 scales for containers of different sizes.
 
-## 📏 Scales
-The available scales can be found under the ./scales/svg subfolder.
+## 📏 Scales Database
+The already generated or created scales can be found under the [scales/svgs](./scales/svgs) subfolder. Or for easier access use the website mentioned below:
+
+## 🌍 Website
+This repo also contains a jekyll website where you can find a list of available scales that is easier to look through than the svg files. 
+Also you'll find instructions on how to create new scales and how they can typically be applied.
+
+The website is hosted via github pages and can be reached here: [https://papauorg.github.io/levelmeter](http://username.github.io/repository)
+
+## 🤖 Dotnet tool levelmeter
+Scales can be created by writing definition files and then running the small tool. It will create an svg file with the scale. See the [documentation](https://papauorg.github.io/levelmeter/create) for more detailed instructions.
 
 ## 🧑‍🤝‍🧑 Contribute
 You want to help develop levelmeter or create new custom scales? To get you quickly stated, this repository comes with a preconfigured
@@ -22,25 +31,6 @@ development environment. To be able to use this environment you need 2 things in
 - visual studio code (vscode)
 
 To start developing clone this repository, open the folder in vscode and use the _development container_ feature. The command is called _Reopen in container_.
-
-### Create new scales
-To create a new scale go to the `scales/definitions` folder and copy the template to a new file. The file names should follow a convention that looks like this:
-```
-<container_type>_<length_unit>_d<container_diameter>_h<container_height>_<scale_range><volume_unit>_i<graduation_mark_interval>_<optional_variation_information>.json
-```
-seems complicated? See the following file name for example: `cylinder_mm_d360_h335_1-30l_i1.json` likely contains the configuration for a scale that:
-* is calculated for a cylindric container (`cylinder`)
-* has a diameter of 360mm (`mm` and `d360`)
-* has a height of 335mm (`mm` and 'h335`)
-* has graduation marks for volumes from 1 to 30 liters (`1-30l`)
-* with graduation marks in intervalls of 1 liter (`i1`)
-
-The template already has a schema assigned that contains descriptions of the available config values and helps you create the json file correctly (if you use e.g. VS code). Also 
-have a look at already existing scale definitions and their resulting svgs for inspiration.
-
-If you are done editing the definition file you can use the VSCode Task `Generate scale`. Select your newly created file and the tool should now create a new svg scale for you. You can edit the definition and repeat the process until you are satisfied.
-
-When the scale is ready, commit the definition and the svg file and create a pull request for your changes to share it with others. If you do so make sure you use a font with a licence that permits this. Also stencil fonts are preferrable because applying the scales do not require transfer tape this way.
 
 ## 🏅 Credits
 
