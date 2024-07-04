@@ -15,8 +15,8 @@
         "graduationMarkSettings": [
             {
                 "interval": 1,
-                "length": 24,
-                "height": 1.25,
+                "length": 25,
+                "height": 1.5,
                 "textTemplate": "{0} gal",
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
