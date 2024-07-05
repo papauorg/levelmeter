@@ -64,4 +64,4 @@ jobs:
         with:
           image: ${{ steps.prep.outputs.tags }}
           options: -v ${{ github.workspace }}:/workspaces/levelmeter
-          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/cylinder*.json | xargs -I % dotnet run --project /workspaces/levelmeter/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %
+          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/cylinder*.json | xargs -I % --max-procs=5 dotnet run --project /workspaces/levelmeter/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %

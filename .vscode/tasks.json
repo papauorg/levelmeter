@@ -47,7 +47,7 @@
         {
             "label": "Rebuild All Cylindric Scales",
             "type": "shell",
-            "command": "find ~+/scales/definitions/cylinder*.json | xargs -I % dotnet ~+/src/dotnet-levelmeter/bin/Release/net8.0/dotnet-levelmeter.dll -- -c %",
+            "command": "find ~+/scales/definitions/cylinder*.json | xargs -I % --max-procs=5 dotnet ~+/src/dotnet-levelmeter/bin/Release/net8.0/dotnet-levelmeter.dll -- -c %",
             "problemMatcher": [],
             "dependsOn": "publish"
         },
