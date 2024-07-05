@@ -92,7 +92,7 @@ public class SvgScalePainter
             var textPosition = GetTextPosition(mark, markerPos, textSize);
 
             _topTextOverflow = Math.Max(_topTextOverflow, markerPos.Y - textPosition.Y + (textSize.Height / 2));
-            _bottomTextOverflow = Math.Min(_bottomTextOverflow, markerPos.Y - textPosition.Y - (textSize.Height / 2));
+            _bottomTextOverflow = Math.Max(_bottomTextOverflow, markerPos.Y - textPosition.Y - (textSize.Height / 2));
 
             scale.Graphics.FillText(textPosition, mark.Text, font, Colours.Black, TextBaselines.Middle, "text" + mark.Volume.ToString());
         }
