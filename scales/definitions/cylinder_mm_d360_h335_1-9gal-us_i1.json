@@ -3,7 +3,7 @@
   "scale-config": {
     "containerForm": "cylinder",
     "lengthUnit": "mm",
-    "volumeUnit": "gal (U.S)",
+    "volumeUnit": "gal (U.S.)",
     "diameter": 360,
     "height": 335,
     "minVolume": 1,

@@ -21,7 +21,7 @@ for file in $(find . -iname '*.json' -type f -printf "%f\n"); do
 
     # fix volume unit for galons
     if [ $volumeUnit = "gal-us" ]; then
-        volumeUnit="gal (U.S)"
+        volumeUnit="gal (U.S.)"
     fi
 
     lowestInterval=$(cat $file | jq '."scale-config".graduationMarkSettings | min_by(.interval) | .interval')
