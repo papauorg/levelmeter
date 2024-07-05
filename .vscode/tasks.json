@@ -62,6 +62,13 @@
             "type": "shell",
             "command": "dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c ${input:definitionFile}",
             "problemMatcher": []
+        },
+        {
+            "label": "Preview Website",
+            "type": "shell",
+            "command": "cd ${workspaceFolder}/site; bundle exec jekyll serve",
+            "problemMatcher": []
+
         }
     ],
     "inputs": [

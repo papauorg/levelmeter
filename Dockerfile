@@ -19,3 +19,5 @@ ENV PATH=$GEM_HOME/bin:$PATH
 
 USER vscode
 RUN gem install jekyll bundler
+
+USER root
