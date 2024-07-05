@@ -3,21 +3,27 @@
   "scale-config": {
     "containerForm": "cylinder",
     "lengthUnit": "mm",
-    "volumeUnit": "gal (U.S)",
-    "diameter": 360,
-    "height": 335,
+    "volumeUnit": "l",
+    "diameter": 460,
+    "height": 361,
     "minVolume": 1,
-    "maxVolume": 9,
+    "maxVolume": 60,
     "output": "./scales/svgs/{0}.svg",
-    "description": "Scale for 360mm diameter cylindric container. 1-9 gal (U.S) in 1 gal (U.S) intervals with text every 1 gal (U.S).",
-    "sucessfullyAppliedTo": "-",
+    "description": "Scale for 460mm diameter cylindric container. 1-60 l in 1 l intervals with text every 5 l.",
+    "sucessfullyAppliedTo": "",
     "requiresTransferTape": false,
     "graduationMarkSettings": [
       {
         "interval": 1,
+        "length": 10,
+        "height": 1.5,
+        "indentation": 0,
+        "textTemplate": ""
+      },
+      {
+        "interval": 5,
         "length": 25,
         "height": 1.5,
-        "textTemplate": "{0} gal",
         "font": {
           "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
           "size": 8,

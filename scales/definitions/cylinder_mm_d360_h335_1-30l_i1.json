@@ -1,37 +1,37 @@
 {
-    "$schema": "./schemas/scale-config",
-    "scale-config": {
-        "containerForm": "cylinder",
-        "lengthUnit": "mm",
-        "volumeUnit": "l",
-        "diameter": 360,
-        "height": 335,
-        "minVolume": 1,
-        "maxVolume": 30,
-        "output": "./scales/svgs/{0}.svg",
-        "description": "Scale for 360mm diameter cylindric container 1-30l in liter intervals with text every 5l.",
-        "sucessfullyAppliedTo": "",
-        "requiresTransferTape": false,
-        "graduationMarkSettings": [
-            {
-                "interval": 1,
-                "length": 10,
-                "height": 1.5,
-                "indentation": 0,
-                "textTemplate": ""
-            },
-            {
-                "interval": 5,
-                "length": 24,
-                "height": 1.5,
-                "font": {
-                    "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
-                    "size": 8,
-                    "offsetX": -2,
-                    "offsetY": -5,
-                    "textAlignment": "Right"
-                }
-            }
-        ]
-    }
+  "$schema": "./schemas/scale-config",
+  "scale-config": {
+    "containerForm": "cylinder",
+    "lengthUnit": "mm",
+    "volumeUnit": "l",
+    "diameter": 360,
+    "height": 335,
+    "minVolume": 1,
+    "maxVolume": 30,
+    "output": "./scales/svgs/{0}.svg",
+    "description": "Scale for 360mm diameter cylindric container. 1-30 l in 1 l intervals with text every 5 l.",
+    "sucessfullyAppliedTo": "",
+    "requiresTransferTape": false,
+    "graduationMarkSettings": [
+      {
+        "interval": 1,
+        "length": 10,
+        "height": 1.5,
+        "indentation": 0,
+        "textTemplate": ""
+      },
+      {
+        "interval": 5,
+        "length": 24,
+        "height": 1.5,
+        "font": {
+          "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
+          "size": 8,
+          "offsetX": -2,
+          "offsetY": -5,
+          "textAlignment": "Right"
+        }
+      }
+    ]
+  }
 }
