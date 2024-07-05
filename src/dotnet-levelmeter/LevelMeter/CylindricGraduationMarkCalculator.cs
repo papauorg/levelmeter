@@ -56,9 +56,6 @@ public class CylindricGraduationMarkCalculator
 
             var currentHeight = GetHeightByVolume(currentVolume, diameter);
 
-            if (currentHeight > height)
-                break;
-
             var mark = new GraduationMark
             {
                 Height = Length.From(setting.Height, LengthUnit),
@@ -85,12 +82,23 @@ public class CylindricGraduationMarkCalculator
     private Volume GetMaximumScaleVolume(Length diameter, Length height, Volume maxVolume)
     {
         var maximumVolumeByHeight = Volume.FromCubicMillimeters(Math.PI * Math.Pow(diameter.Millimeters / 2, 2) * height.Millimeters);
-        if (maxVolume.Value == 0)
-            maxVolume = maximumVolumeByHeight;
-        else
-            maxVolume = maximumVolumeByHeight > maxVolume ? maxVolume : maximumVolumeByHeight;
 
-        return maxVolume.ToUnit(VolumeUnit);
+        // use volume by height if no max is defined
+        if (maxVolume.Value == 0)
+            return maximumVolumeByHeight.ToUnit(VolumeUnit);
+
+        // if volume by height is within 1% tolerance of the max volume,
+        // use the maxVolume for even end of the scale
+        if (maxVolume.Equals(maximumVolumeByHeight, maxVolume / 100))
+            return maxVolume.ToUnit(VolumeUnit);
+        
+        // limit to max volume if the volume by height would be more
+        if (maxVolume < maximumVolumeByHeight)
+            return maxVolume.ToUnit(VolumeUnit);
+
+        // if the volume by height is less than the maximum
+        // use it.
+        return maximumVolumeByHeight.ToUnit(VolumeUnit);
     }
 
 
