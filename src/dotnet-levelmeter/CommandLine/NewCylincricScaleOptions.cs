@@ -58,5 +58,14 @@ public record NewCylincricScaleOptions
 
         if (GraduationMarkSettings?.Any() != true)
             throw new ArgumentException("Specify at least one graduation mark setting by providing a config file or environment variables.", nameof(GraduationMarkSettings));
+
+        if (MinVolume < 0)
+            throw new ArgumentOutOfRangeException(nameof(MinVolume), MinVolume, "Value must not be lower than 0");
+
+        if (MaxVolume < MinVolume)
+            throw new ArgumentOutOfRangeException(nameof(MaxVolume), MaxVolume, "MaxVolume must be greater or equal MinVolume");
+
+        foreach (var m in GraduationMarkSettings)
+            m.Validate();
     }
 }

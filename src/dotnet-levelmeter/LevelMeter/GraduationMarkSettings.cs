@@ -1,3 +1,4 @@
+
 public record GraduationMarkSettings
 {
     public enum TextAlignment { Left = 0, Center = 1, Right = 2 }
@@ -37,4 +38,13 @@ public record GraduationMarkSettings
     /// Font settings to use for the text of the graduation mark.
     /// </summary>
     public FontSettings Font { get; init; } = new();
+
+    internal void Validate()
+    {
+        if (Length <= 0)
+            throw new ArgumentOutOfRangeException(nameof(Length), Length, "Value must be greater than 0;");
+        
+        if (Height <= 0)
+            throw new ArgumentOutOfRangeException(nameof(Height), Height, "Value must be greater than 0");
+    }
 }
