@@ -6,7 +6,7 @@
         "volumeUnit": "l",
         "diameter": 360,
         "height": 335,
-        "minVolume": 0.1,
+        "minVolume": 1,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
         "description": "Scale for 360mm diameter cylindric container 1-30l in liter intervals with text every 5l.",
