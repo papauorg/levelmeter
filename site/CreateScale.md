@@ -21,14 +21,14 @@ The easiest way to get started is to clone the git repository, and use the devco
 
 - git
 - docker
-- visual studio code
+- Visual Studio Code
 
 ```bash
 git clone {{ site.data.githubinfo.repositoryUrl }}.git
 ```
 
 The repository comes with a preconfigured development environment that contains all relevant dependencies, so you don't have to install them on your computer. To use it
-open your newly cloned folder with visual studio code. Then use the `Reopen in container` function of vscode.
+open your newly cloned folder with Visual Studio Code. Then use the `Reopen in container` function of VScode.
 
 ## Create scale definition
 To create a new scale go to the `scales/definitions` folder and copy the template to a new file. The file names should follow a convention that looks like this:

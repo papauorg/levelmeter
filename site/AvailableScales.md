@@ -10,9 +10,9 @@ This is a list of currently pre-generated or manually created scales available f
     <thead>
         <tr>
             <th>Container Form</th>
-            <th>Inner Diameter</th>
-            <th>Height</th>
-            <th>Max. Vol.</th>
+            <th>Inner Ø</th>
+            <th>Container Height</th>
+            <th>Vol.</th>
             <th>Scale Unit</th>
             <th>Description</th>
             <th>Confirmed success</th>
