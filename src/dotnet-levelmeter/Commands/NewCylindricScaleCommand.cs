@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 using Papau.Levelmeter.LevelMeter;
 
 namespace Papau.Levelmeter.Commands;
@@ -13,12 +15,15 @@ public class NewCylindricScaleCommand
 
     public async Task<int> InvokeAsync(CancellationToken cancellationToken)
     {
+        var stopwatch = Stopwatch.StartNew();
         var calculator = new CylindricGraduationMarkCalculator(Options.GraduationMarkSettings, Options.GetLengthUnit(), Options.GetVolumeUnit());
         var graduationMarks = calculator.CalculateScale(
             Options.GetDiameter(),
             Options.GetHeight(),
             Options.GetMinVolume(),
             Options.GetMaxVolume());
+
+        var calculationTime = stopwatch.ElapsedMilliseconds;
 
         Stream outputStream;
         if (string.IsNullOrWhiteSpace(Options.Output))
@@ -35,10 +40,13 @@ public class NewCylindricScaleCommand
             outputStream.SetLength(0); // make sure to overwrite if already exists
         }
 
+        var openStream = stopwatch.ElapsedMilliseconds;
+
         var painter = new SvgScalePainter();
         await painter.PaintAsync(graduationMarks, outputStream, cancellationToken).ConfigureAwait(false);
 
-        await Console.Error.WriteLineAsync("Finished!").ConfigureAwait(false);
+        var painted = stopwatch.ElapsedMilliseconds;
+        await Console.Error.WriteLineAsync($"Finished! (Calculation: {calculationTime}, Stream: {openStream}, Paint: {painted})").ConfigureAwait(false);
 
         return 0;
     }

@@ -17,6 +17,17 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "publish",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Release"
+            ],
+            "dependsOn": "build"
+        },
+        {
             "label": "Format code",
             "type": "shell",
             "command": "dotnet",
@@ -36,8 +47,9 @@
         {
             "label": "Rebuild All Cylindric Scales",
             "type": "shell",
-            "command": "find ~+/scales/definitions/cylinder*.json | xargs -I % dotnet run --project ~+/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %",
-            "problemMatcher": []
+            "command": "find ~+/scales/definitions/cylinder*.json | xargs -I % dotnet ~+/src/dotnet-levelmeter/bin/Release/net8.0/dotnet-levelmeter.dll -- -c %",
+            "problemMatcher": [],
+            "dependsOn": "publish"
         },
         {
             "label": "Check scales json schema",
