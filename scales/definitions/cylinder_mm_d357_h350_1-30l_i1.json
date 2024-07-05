@@ -7,9 +7,9 @@
     "diameter": 357,
     "height": 350,
     "minVolume": 1,
-    "maxVolume": 35,
+    "maxVolume": 30,
     "output": "./scales/svgs/{0}.svg",
-    "description": "Scale for 357mm diameter cylindric container. 1-35 l in 1 l intervals with text every 5 l.",
+    "description": "Scale for 357mm diameter cylindric container. 1-30 l in 1 l intervals with text every 5 l.",
     "sucessfullyAppliedTo": "",
     "requiresTransferTape": false,
     "graduationMarkSettings": [
