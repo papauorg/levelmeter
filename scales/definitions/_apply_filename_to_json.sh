@@ -2,9 +2,11 @@
 
 set -e
 
-for file in $(find . -iname '*.json' -type f -printf "%f\n"); do
+#for file in $(find . -iname '*.json' -type f -printf "%f\n"); do
+file=$1
 
     form=$(echo "$file" | cut -d _ -f1)
+    form=${form##*/}
     lengthUnit=$(echo "$file" | cut -d _ -f2)
     diameter=$(echo "$file" | cut -d _ -f3)
     diameter=${diameter:1}
@@ -47,4 +49,4 @@ for file in $(find . -iname '*.json' -type f -printf "%f\n"); do
         "$file.edited"
 
     mv "$file.edited" "$file" -f
-done
+#done
