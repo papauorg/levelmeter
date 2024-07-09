@@ -15,23 +15,24 @@ jobs:
 
     - name: Get Issue ID
       id: issue_id
-      run: echo "::set-output name=id::${{ github.event.issue.number }}"
+      run: echo "id=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
 
-      - name: Parse issue body and extract fields
+    - name: Parse issue body and extract fields
       id: parse_fields
       run: |
-        CONTAINER_FORM=$(grep -oP '(?<=containerForm\n)[^\n]+' issue_body.txt | tr -d '\r')
-        LENGTH_UNIT=$(grep -oP '(?<=lengthUnit\n)[^\n]+' issue_body.txt | tr -d '\r')
-        VOLUME_UNIT=$(grep -oP '(?<=volumeUnit\n)[^\n]+' issue_body.txt | tr -d '\r')
-        DIAMETER=$(grep -oP '(?<=diameter\n)[^\n]+' issue_body.txt | tr -d '\r')
-        HEIGHT=$(grep -oP '(?<=height\n)[^\n]+' issue_body.txt | tr -d '\r')
-        MIN_VOLUME=$(grep -oP '(?<=minimumVolume\n)[^\n]+' issue_body.txt | tr -d '\r')
-        MAX_VOLUME=$(grep -oP '(?<=maximumVolume\n)[^\n]+' issue_body.txt | tr -d '\r')
-        DESCRIPTION=$(grep -oP '(?<=description\n)[^\n]+' issue_body.txt | tr -d '\r')
+        issue_body="${{ github.event.issue.body }}"
+        CONTAINER_FORM=$(echo "$issue_body" | grep -oP '(?<=containerForm\n)[^\n]+' | tr -d '\r')
+        LENGTH_UNIT=$(echo "$issue_body" | grep -oP '(?<=lengthUnit\n)[^\n]+' | tr -d '\r')
+        VOLUME_UNIT=$(echo "$issue_body" | grep -oP '(?<=volumeUnit\n)[^\n]+' | tr -d '\r')
+        DIAMETER=$(echo "$issue_body" | grep -oP '(?<=diameter\n)[^\n]+' | tr -d '\r')
+        HEIGHT=$(echo "$issue_body" | grep -oP '(?<=height\n)[^\n]+' | tr -d '\r')
+        MIN_VOLUME=$(echo "$issue_body" | grep -oP '(?<=minimumVolume\n)[^\n]+' | tr -d '\r')
+        MAX_VOLUME=$(echo "$issue_body" | grep -oP '(?<=maximumVolume\n)[^\n]+' | tr -d '\r')
+        DESCRIPTION=$(echo "$issue_body" | grep -oP '(?<=description\n)[^\n]+' | tr -d '\r')
         FILENAME="${CONTAINER_FORM}_${LENGTH_UNIT}_d${DIAMETER}_h${HEIGHT}_${MIN_VOLUME}-${MAX_VOLUME}${VOLUME_UNIT}_i1"
 
         echo "Form: $CONTAINER_FORM"
-        echo "LenghtUnit: $LENGTH_UNIT"
+        echo "LengthUnit: $LENGTH_UNIT"
         echo "VolumeUnit: $VOLUME_UNIT"
         echo "Diameter: $DIAMETER"
         echo "Height: $HEIGHT"
@@ -40,23 +41,24 @@ jobs:
         echo "Description: $DESCRIPTION"
         echo "FileName: $FILENAME"
 
-        echo "::set-output name=container_form::$CONTAINER_FORM"
-        echo "::set-output name=length_unit::$LENGTH_UNIT"
-        echo "::set-output name=volume_unit::$VOLUME_UNIT"
-        echo "::set-output name=diameter::$DIAMETER"
-        echo "::set-output name=height::$HEIGHT"
-        echo "::set-output name=min_volume::$MIN_VOLUME"
-        echo "::set-output name=max_volume::$MAX_VOLUME"
-        echo "::set-output name=description::$DESCRIPTION"
-        echo "::set-output name=filename::$FILENAME"
+        echo "container_form=$CONTAINER_FORM" >> $GITHUB_OUTPUT
+        echo "length_unit=$LENGTH_UNIT" >> $GITHUB_OUTPUT
+        echo "volume_unit=$VOLUME_UNIT" >> $GITHUB_OUTPUT
+        echo "diameter=$DIAMETER" >> $GITHUB_OUTPUT
+        echo "height=$HEIGHT" >> $GITHUB_OUTPUT
+        echo "min_volume=$MIN_VOLUME" >> $GITHUB_OUTPUT
+        echo "max_volume=$MAX_VOLUME" >> $GITHUB_OUTPUT
+        echo "description=$DESCRIPTION" >> $GITHUB_OUTPUT
+        echo "filename=$FILENAME" >> $GITHUB_OUTPUT
 
-    - name: Create or override scale file.
+    - name: Create or override scale file
       run: |
         newFile="./scales/definitions/${{ steps.parse_fields.outputs.filename }}.json"
         cp -f ./scales/definitions/_newscale.json.template "$newFile"
         ./scales/definitions/_apply_filename_to_json.sh "$newFile"
 
     - name: Generate scale svg
+      run: echo "This step should generate the SVG"
 
     - name: Configure git
       run: |
@@ -69,7 +71,7 @@ jobs:
         git checkout -b $BRANCH_NAME
         git add .
         git commit -m "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
-        #git push origin $BRANCH_NAME
+        # git push origin $BRANCH_NAME
 
 #    - name: Create pull request
 #      id: create_pr
