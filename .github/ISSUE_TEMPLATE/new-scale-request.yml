@@ -85,3 +85,9 @@ body:
     attributes:
       label: Graduation mark settings
       description: Anything you want the scale to be different than the default. Keep in mind that this may take longer to get created as it will be manual work to do it.
+  - type: input
+    id: template_marker
+    attributes:
+      label: Template Marker
+      value: new-scale-request-template
+      render: hidden
