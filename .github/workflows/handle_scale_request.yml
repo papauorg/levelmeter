@@ -4,6 +4,9 @@ on:
   issues:
     types: [ "opened", "edited" ]
 
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/levelmeter
+
 jobs:
   process-issue:
     if: contains(github.event.issue.labels.*.name, 'automatic-scale-request')
@@ -40,8 +43,8 @@ jobs:
           DESCRIPTION=$(echo "$issue_body" | jq -r .description)
 
           FILENAME="${CONTAINER_FORM}_${LENGTH_UNIT}_d${DIAMETER}_h${HEIGHT}_${MIN_VOLUME}-${MAX_VOLUME}${VOLUME_UNIT}_i1"
-          DEFINITION_FILE="./scales/definitions/$FILENAME.json"
-          VECTOR_FILE="./scales/svgs/$FILENAME.svg"
+          DEFINITION_FILE="scales/definitions/$FILENAME.json"
+          VECTOR_FILE="scales/svgs/$FILENAME.svg"
 
           echo "Form: $CONTAINER_FORM"
           echo "LengthUnit: $LENGTH_UNIT"
@@ -67,6 +70,13 @@ jobs:
           echo "definition_file=$DEFINITION_FILE" >> $GITHUB_OUTPUT
           echo "vector_file=$VECTOR_FILE" >> $GITHUB_OUTPUT
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create or override scale file
         run: |
           newFile="${{ steps.parse_fields.outputs.definition_file }}"
@@ -74,7 +84,8 @@ jobs:
           ./scales/definitions/_apply_filename_to_json.sh "$newFile"
 
       - name: Generate scale svg
-        run: echo "This step should generate the SVG"
+        run: |
+          docker run --rm -v $(pwd):/config $IMAGE_NAME -c /config/${{ steps.parse_fields.outputs.definition_file }}
 
       - name: Configure git
         run: |
@@ -89,7 +100,7 @@ jobs:
           (
             git checkout $BRANCH_NAME || git checkout -b $BRANCH_NAME
           )
-          
+
           git add "${{ steps.parse_fields.outputs.definition_file }}" "${{ steps.parse_fields.outputs.vector_file }}"
           git commit -m "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
           git push origin $BRANCH_NAME
