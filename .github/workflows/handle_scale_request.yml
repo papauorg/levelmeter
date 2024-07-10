@@ -84,10 +84,15 @@ jobs:
       - name: Create new branch and commit changes
         run: |
           BRANCH_NAME="feature/scale-request-${{ steps.issue_id.outputs.id }}"
-          git checkout $BRANCH_NAME || git checkout -b $BRANCH_NAME
+          
+          # Run the command in a subshell to avoid exiting the script if firstcommand fails
+          (
+            git checkout $BRANCH_NAME || git checkout -b $BRANCH_NAME
+          )
+          
           git add "${{ steps.parse_fields.outputs.definition_file }}" "${{ steps.parse_fields.outputs.vector_file }}"
           git commit -m "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
-          # git push origin $BRANCH_NAME
+          git push origin $BRANCH_NAME
 
 #    - name: Create pull request
 #      id: create_pr
