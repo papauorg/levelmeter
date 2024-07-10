@@ -20,14 +20,15 @@ jobs:
 
       - name: Parse Issue
         id: parse-issue
-        uses: GrantBirki/issue-template-parser@v7.0.2
+        uses: edumserrano/github-issue-forms-parser@v1
         with:
-          body: ${{ github.event.issue.body }}
+          template-filepath: '.github/ISSUE_TEMPLATE/new-scale-request.yml'
+          issue-form-body: '${{ github.event.issue.body }}'
 
       - name: Parse issue body and extract fields
         id: parse_fields
         run: |
-          issue_body=${{ steps.parse-issue.outputs.json }}
+          issue_body=${{ steps.parse-issue.outputs.parsed-issue }}
 
           CONTAINER_FORM=$(echo "$issue_body" | jq -r .containerForm)
           LENGTH_UNIT=$(echo "$issue_body" | jq -r .lengthUnit)
