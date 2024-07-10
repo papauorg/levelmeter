@@ -34,9 +34,9 @@ jobs:
           # to speed up the build process
           BUILD_CACHE_IMAGE_NAME=${TAGS}
 
-          if [[ ${GITHUB_REF_NAME} == ref/tags/* ]]; then
+          if [[ ${GITHUB_REF} == refs/tags/* ]]; then
             LATEST_IMAGE=$IMAGE_NAME_LOWERCASE:latest
-            VERSION=${GITHUB_REF_NAME#ref/tags/}
+            VERSION=${GITHUB_REF#refs/tags/}
             TAGS="${TAGS},${LATEST_IMAGE},$IMAGE_NAME_LOWERCASE:v${VERSION}"
             PUBLISH_IMAGE=true
           fi
