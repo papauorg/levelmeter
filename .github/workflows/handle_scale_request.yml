@@ -6,7 +6,8 @@ on:
 
 jobs:
   process-issue:
-    if: contains(github.event.issue.body, 'new-scale-request-template')
+    if: contains(github.event.issue.labels.*.name, 'automatic-scale-request')
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,18 +18,26 @@ jobs:
         id: issue_id
         run: echo "id=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
 
+      - name: Parse Issue
+        id: parse-issue
+        uses: GrantBirki/issue-template-parser@vX.X.X
+        with:
+          body: ${{ github.event.issue.body }}
+
       - name: Parse issue body and extract fields
         id: parse_fields
         run: |
-          issue_body="${{ github.event.issue.body }}"
-          CONTAINER_FORM=$(echo "$issue_body" | grep -oP '(?<=containerForm\n)[^\n]+' | tr -d '\r')
-          LENGTH_UNIT=$(echo "$issue_body" | grep -oP '(?<=lengthUnit\n)[^\n]+' | tr -d '\r')
-          VOLUME_UNIT=$(echo "$issue_body" | grep -oP '(?<=volumeUnit\n)[^\n]+' | tr -d '\r')
-          DIAMETER=$(echo "$issue_body" | grep -oP '(?<=diameter\n)[^\n]+' | tr -d '\r')
-          HEIGHT=$(echo "$issue_body" | grep -oP '(?<=height\n)[^\n]+' | tr -d '\r')
-          MIN_VOLUME=$(echo "$issue_body" | grep -oP '(?<=minimumVolume\n)[^\n]+' | tr -d '\r')
-          MAX_VOLUME=$(echo "$issue_body" | grep -oP '(?<=maximumVolume\n)[^\n]+' | tr -d '\r')
-          DESCRIPTION=$(echo "$issue_body" | grep -oP '(?<=description\n)[^\n]+' | tr -d '\r')
+          issue_body=${{ steps.parse-issue.outputs.json }}
+
+          CONTAINER_FORM=$(echo "$issue_body" | jq -r .containerForm)
+          LENGTH_UNIT=$(echo "$issue_body" | jq -r .lengthUnit)
+          VOLUME_UNIT=$(echo "$issue_body" | jq -r .volumeUnit)
+          DIAMETER=$(echo "$issue_body" | jq -r .diameter)
+          HEIGHT=$(echo "$issue_body" | jq -r .height)
+          MIN_VOLUME=$(echo "$issue_body" | jq -r .minVolume)
+          MAX_VOLUME=$(echo "$issue_body" | jq -r .maxVolume)
+          DESCRIPTION=$(echo "$issue_body" | jq -r .description)
+
           FILENAME="${CONTAINER_FORM}_${LENGTH_UNIT}_d${DIAMETER}_h${HEIGHT}_${MIN_VOLUME}-${MAX_VOLUME}${VOLUME_UNIT}_i1"
 
           echo "Form: $CONTAINER_FORM"

@@ -1,7 +1,7 @@
 name: 📏 New Scale Request (Cylindric)
 description: Request a new default scale for a cylindric container.
 title: "[Scale]: "
-labels: ["scale-request"]
+labels: ["automatic-scale-request"]
 body:
   - type: checkboxes
     id: terms
