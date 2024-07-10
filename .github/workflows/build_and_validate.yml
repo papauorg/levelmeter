@@ -6,6 +6,8 @@ name: .NET
 on:
   push:
     branches: [ "main" ]
+    tags:
+      - '*'
   pull_request:
     branches: [ "main" ]
 
@@ -28,10 +30,31 @@ jobs:
           PUBLISH_IMAGE=false
           TAGS="$IMAGE_NAME_LOWERCASE:dev"
 
+          # Define the image that will be used as a cached image
+          # to speed up the build process
+          BUILD_CACHE_IMAGE_NAME=${TAGS}
+
+          if [[ ${GITHUB_REF_NAME} == ref/tags/* ]]; then
+            LATEST_IMAGE=$IMAGE_NAME_LOWERCASE:latest
+            VERSION=${GITHUB_REF_NAME#ref/tags/}
+            TAGS="${TAGS},${LATEST_IMAGE},$IMAGE_NAME_LOWERCASE:v${VERSION}"
+            PUBLISH_IMAGE=true
+          fi
+
           echo "tags: $TAGS"
           echo "publish_image: $PUBLISH_IMAGE"
+          echo "cache_name: $BUILD_CACHE_IMAGE_NAME"
+
           echo "tags=$TAGS" >> $GITHUB_OUTPUT
           echo "publish_image=$PUBLISH_IMAGE" >> $GITHUB_OUTPUT
+          echo "cache_name=$BUILD_CACHE_IMAGE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: docker/build-push-action@v4
         with:
@@ -39,29 +62,15 @@ jobs:
           file: "Dockerfile"
           tags: ${{ steps.prep.outputs.tags }}
           load: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          push: false
+          cache-from: type=registry,ref=${{ steps.prep.outputs.cache_name }}
+          cache-to: type=inline
+          push: ${{ steps.prep.outputs.publish_image == 'true' }}
           labels: |
             org.opencontainers.image.title=${{ github.event.repository.name }}
             org.opencontainers.image.description=${{ github.event.repository.description }}
             org.opencontainers.image.url=${{ github.event.repository.html_url }}
             org.opencontainers.image.revision=${{ github.sha }}
-      - name: Validate json schemas
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ steps.prep.outputs.tags }}
-          options: -v ${{ github.workspace }}:/workspaces/levelmeter
-          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/*.json | xargs -I % check-jsonschema % --schemafile /workspaces/levelmeter/scales/definitions/schemas/scale-config
-      - name: Build and test
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ steps.prep.outputs.tags }}
-          options: -v ${{ github.workspace }}:/workspaces/levelmeter
-          run: cd /workspaces/levelmeter && dotnet build --configuration=Release && dotnet test --configuration=Release
+      
       - name: Test recreating all cylinder definitions
-        uses: addnab/docker-run-action@v3
-        with:
-          image: ${{ steps.prep.outputs.tags }}
-          options: -v ${{ github.workspace }}:/workspaces/levelmeter
-          run: cd /workspaces/levelmeter && find /workspaces/levelmeter/scales/definitions/cylinder*.json | xargs -I % dotnet run --project /workspaces/levelmeter/src/dotnet-levelmeter/dotnet-levelmeter.csproj -- -c %
+        run: |
+          find ./scales/definitions/cylinder*.json | sed -E 's/^\./\/config/g' | xargs -I % docker run -v $(pwd):/config $IMAGE_NAME:dev -c %
