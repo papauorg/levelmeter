@@ -28,7 +28,7 @@ jobs:
       - name: Parse issue body and extract fields
         id: parse_fields
         run: |
-          issue_body=${{ steps.parse-issue.outputs.parsed-issue }}
+          issue_body='${{ steps.parse-issue.outputs.parsed-issue }}'
 
           CONTAINER_FORM=$(echo "$issue_body" | jq -r .containerForm)
           LENGTH_UNIT=$(echo "$issue_body" | jq -r .lengthUnit)
