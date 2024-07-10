@@ -21,3 +21,17 @@ USER vscode
 RUN gem install jekyll bundler
 
 USER root
+
+
+
+FROM dev as build
+WORKDIR /build
+COPY . .
+RUN find ./scales/definitions/*.json | xargs -I % check-jsonschema % --schemafile ./scales/definitions/schemas/scale-config
+RUN dotnet build --configuration=Release && dotnet test --no-build --configuration=Release
+
+FROM mcr.microsoft.com/dotnet/runtime:8.0
+WORKDIR /app
+COPY --from=build /build/src/dotnet-levelmeter/bin/Release/net8.0 .
+WORKDIR /config
+ENTRYPOINT [ "dotnet", "/app/dotnet-levelmeter.dll", "--"]
