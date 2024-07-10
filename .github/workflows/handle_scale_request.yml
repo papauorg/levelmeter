@@ -20,7 +20,7 @@ jobs:
 
       - name: Parse Issue
         id: parse-issue
-        uses: GrantBirki/issue-template-parser@vX.X.X
+        uses: GrantBirki/issue-template-parser@v7.0.2
         with:
           body: ${{ github.event.issue.body }}
 
