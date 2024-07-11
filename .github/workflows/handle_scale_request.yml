@@ -92,32 +92,32 @@ jobs:
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-#      - name: Create new branch and commit changes
-#        run: |
-#          BRANCH_NAME="feature/scale-request-${{ steps.issue_id.outputs.id }}"
-#          
-#          # Run the command in a subshell to avoid exiting the script if firstcommand fails
-#          (
-#            git checkout $BRANCH_NAME || git checkout -b $BRANCH_NAME
-#          )
-#
-#          (
-#            git add "${{ steps.parse_fields.outputs.definition_file }}" || true
-#            git add "${{ steps.parse_fields.outputs.vector_file }}" || true
-#            git commit -m "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
-#          )
-#
-#          git push origin $BRANCH_NAME
+      - name: Create new branch and commit changes
+        run: |
+          BRANCH_NAME="feature/scale-request-${{ steps.issue_id.outputs.id }}"
+          
+          # Run the command in a subshell to avoid exiting the script if firstcommand fails
+          (
+            git checkout --track origin/$BRANCH_NAME || git checkout -b $BRANCH_NAME origin/$BRANCH_NAME
+          )
 
-    - name: Create pull request
-      id: create_pr
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: "feature/scale-request-${{ steps.issue_id.outputs.id }}"
-        base: main
-        delete-branch: true
-        title: "Scale Request #${{ steps.issue_id.outputs.id }}"
-        body: "This PR is to handle the scale request from issue #${{ steps.issue_id.outputs.id }}"
-        labels: automatic-scale-request
-        commit-message: "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
+          (
+            git add "${{ steps.parse_fields.outputs.definition_file }}" || true
+            git add "${{ steps.parse_fields.outputs.vector_file }}" || true
+            git commit -m "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
+          )
+
+          git push origin $BRANCH_NAME
+
+#    - name: Create pull request
+#      id: create_pr
+#      uses: peter-evans/create-pull-request@v5
+#      with:
+#        token: ${{ secrets.GITHUB_TOKEN }}
+#        branch: "feature/scale-request-${{ steps.issue_id.outputs.id }}"
+#        base: main
+#        delete-branch: true
+#        title: "Scale Request #${{ steps.issue_id.outputs.id }}"
+#        body: "This PR is to handle the scale request from issue #${{ steps.issue_id.outputs.id }}"
+#        labels: automatic-scale-request
+#        commit-message: "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
