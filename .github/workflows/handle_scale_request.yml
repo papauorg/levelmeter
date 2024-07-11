@@ -98,8 +98,8 @@ jobs:
           commit-message: "Add/Edit scale for scale request #${{ steps.issue_id.outputs.id }}"
           committer: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           body: |
-            Create new scale for request #${{ steps.issue_id_outputs.id }}
-          title: '[Scale] Create new scale h${{ steps.parse_fields.outputs.height }} d${{ steps.parse_fields.outputs.diameter }}'
+            Create new scale for request #${{ steps.issue_id.outputs.id }}
+          title: '[Scale] Create new scale for request #${{ steps.issue_id_outputs.id }}'
           labels: automatic-scale-request
           branch: feature/scale-request-${{ steps.issue_id.outputs.id }}
           add-paths: |
