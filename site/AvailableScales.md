@@ -40,7 +40,7 @@ This is a list of currently pre-generated or manually created scales available f
             <td>{{ scale.maxVolume }}</td>
             <td>{{ scale.volumeUnit }}</td>
             <td>{{ scale.description }}</td>
-            <td>{{ scale.successfullyAppliedTo }}</td>
+            <td>{{ scale.sucessfullyAppliedTo }}</td>
             <!--<td>{{ scale.requiresTransferTape | default: "N/A"}}</td> -->
             <!--<td>{{ scale.graduationMarkSettings | size }}</td>-->
             <td>
