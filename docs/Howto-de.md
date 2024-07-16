@@ -9,7 +9,7 @@ Du hast eine Skala geplottet oder plotten lassen? Hier gibt's die Anleitung zum 
 **Dies ist ein Erfahrungsbericht. Falls du vorhast das nachzumachen tust du das auf eigene Gefahr!**
 
 ## 1. Entgittern
-Bevor du die Skala auf deinen Behälter anbringen kannst, musst du zuerst die überflüssigen Teile daraus entfernen. Beim entgittern nimmst du eine Stecknadel oder einen anderen spitzigen Gegenstand und löst damit die inneren Teile der Skala, nämlich die, die später auf deinem Behälter sichtbar sein sollen, aus.
+Bevor du die Skala auf deinen Behälter anbringen kannst, musst du zuerst die überflüssigen Teile daraus entfernen. Beim Entgittern nimmst du eine Stecknadel oder einen anderen spitzigen Gegenstand und löst damit die inneren Teile der Skala, nämlich die, die später auf deinem Behälter sichtbar sein sollen, aus.
 
 ![Entgittern]({{ site.baseurl }}/assets/img/howto-weeding.jpg)
 
@@ -30,7 +30,7 @@ Reinige den Bereich deines Behälters auf den die Skala angebracht werden soll.
 ![Behälter reinigen]({{ site.baseurl }}/assets/img/howto-clean-container.jpg)
 
 ## 4. Referenzhöhe ermitteln (Auslitern)
-Um korrekte Werte anzuzeigen muss die Skala auf einer bestimmten höhe in dem Behälter angebracht werden. Dafür ist es nötig eine Referenzhöhe zu ermitteln. Nimm dazu eine zuvor abgemessene Wassermenge und fülle sie in deinen Behälter. Achtung: Einige Messbecher sind sehr ungenau. Ein besseres Ergebnis erhältst du oft mit einer abgewogenen Menge Wasser (1l = 1kg).
+Um korrekte Werte anzuzeigen muss die Skala auf einer bestimmten Höhe in dem Behälter angebracht werden. Dafür ist es nötig eine Referenzhöhe zu ermitteln. Nimm dazu eine zuvor abgemessene Wassermenge und fülle sie in deinen Behälter. Achtung: Einige Messbecher sind sehr ungenau. Ein besseres Ergebnis erhältst du oft mit einer abgewogenen Menge Wasser (1l = 1kg).
 
 Stelle den Topf auf eine ebene Fläche und markiere dir den Wasserstand in der Nähe der Stelle, an der du die Skala anbringen möchtest. Es sollte möglich sein deine Skala später an dieser Markierung auszurichten.
 
@@ -40,16 +40,16 @@ Hier als Beispiel:
 ![Wasserstand mit Klebestreifen markieren]({{ site.baseurl }}/assets/img/howto-reference-1.jpg)
 ![Markierung mit Stift]({{ site.baseurl }}/assets/img/howto-reference-2.jpg)
 
-Ggf. reicht dir auch ein Klebestreifen, der gerade aufgeklebt ist oder ein Stift, der auch an der Wasserkannte gut erkennbar malt - so wie es für dich am einfachsten geht.
+Ggf. reicht dir auch ein Klebestreifen, der gerade aufgeklebt ist oder ein Stift, der auch an der Wasserkante gut erkennbar malt - so wie es für dich am einfachsten geht.
 
 ## 5. Skala aufkleben
 Nimm deine vorbereitete Skala und klebe Sie passend zu der zuvor ermittelten Referenzmarkierung in deinen Behälter (in obigem Beispiel ist es die 5l Markierung). Achte darauf die Skala gerade einzukleben. Dabei helfen ggf. ein Winkel und weitere Markierungen.
 
 ![Skala aufkleben]({{ site.baseurl }}/assets/img/howto-apply-scale.jpg)
 
-*Achtung:* Versuche die Skala gleich beim ersten Mal richtig zu Platzieren. Beim ablösen besteht die Gefahr die Folie zu verzerren oder zu zerreißen!
+*Achtung:* Versuche die Skala gleich beim ersten Mal richtig zu platzieren. Beim Ablösen besteht die Gefahr die Folie zu verzerren oder zu zerreißen!
 
-Dannach kannst du die Transferfolie *vorsichtig* abziehen. Optional kannst du um die Skala herum noch mit anderem Klebeband abkleben, so dass nicht aus versehen ätzspuren entstehen, wo keine sein sollen.
+Danach kannst du die Transferfolie *vorsichtig* abziehen. Optional kannst du um die Skala herum noch mit anderem Klebeband abkleben, so dass nicht aus versehen Ätz-Spuren entstehen, wo keine sein sollen.
 
 ![Abkleben]({{ site.baseurl }}/assets/img/howto-masking.jpg)
 

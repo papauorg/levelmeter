@@ -38,7 +38,7 @@ To create a new scale go to the `scales/definitions` folder and copy the templat
 seems complicated? See the following file name for example: `cylinder_mm_d360_h335_1-30l_i1.json` likely contains the configuration for a scale that:
 * is calculated for a cylindric container (`cylinder`)
 * has a diameter of 360mm (`mm` and `d360`)
-* has a height of 335mm (`mm` and 'h335`)
+* has a height of 335mm (`mm` and `h335`)
 * has graduation marks for volumes from 1 to 30 liters (`1-30l`)
 * with graduation marks in intervalls of 1 liter (`i1`)
 
