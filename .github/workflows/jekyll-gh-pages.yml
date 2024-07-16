@@ -28,6 +28,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Prepare Jekyll Data Directory
+        run: |
+          # Replace symlinks with copies of the files
+          cp -L -r ./docs/_data/scales ./docs/_data/scales_copy
+          rm -rf ./docs/_data/scales
+          mv ./docs/_data/scales_copy ./docs/_data/scales
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
