@@ -45,7 +45,7 @@ seems complicated? See the following file name for example: `cylinder_mm_d360_h3
 The template already has a schema assigned that contains descriptions of the available config values and helps you create the json file correctly (if you use e.g. VS code). Also 
 have a look at already existing scale definitions and their resulting svgs for inspiration. For a little visual on how the settings affect the outcome see this image:
 
-![JSON Definition to SVG output](/assets/img/scale_definition_json.png)
+![JSON Definition to SVG output]({{ site.baseurl }}/assets/img/scale_definition_json.png)
 
 If you are done editing the definition file you can use the VSCode Task `Generate scale`. Select your newly created file and the tool should now create a new svg scale for you. You can edit the definition and repeat the process until you are satisfied.
 

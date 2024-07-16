@@ -5,7 +5,7 @@
 layout: page
 ---
 
-![levelmeter logo](/assets/img/icon.png){:style="display:block; margin-left:auto; margin-right:auto; max-height: 300px;"}
+![levelmeter logo]({{ site.baseurl }}/assets/img/icon.png){:style="display:block; margin-left:auto; margin-right:auto; max-height: 300px;"}
 <p style="color:gray; font-size:80%; text-align:center">Icon by https://frepic.com</p>
 
 
@@ -15,11 +15,11 @@ Welcome to a database of vector graphics designed for home brewers. This site of
 
 ## Explore the Database
 
-Browse through the [selection of available scales](./scales) to find the perfect fit for your liquid containers. The search functionality makes it easy to find what you need. Each scale is available for viewing and downloading directly from the site.
+Browse through the [selection of available scales]({{ site.baseurl }}/scales) to find the perfect fit for your liquid containers. The search functionality makes it easy to find what you need. Each scale is available for viewing and downloading directly from the site.
 
 ## Create a Custom Scale
 
-Didn't find what you were looking for? The [Create a New Scale](./create) section provides a step-by-step guide to help you design and generate a custom etching template. Tailor your scale to fit any container size or shape, ensuring your brewing process is as accurate as possible.
+Didn't find what you were looking for? The [Create a New Scale]({{ site.baseurl }}/create) section provides a step-by-step guide to help you design and generate a custom etching template. Tailor your scale to fit any container size or shape, ensuring your brewing process is as accurate as possible.
 
 ## How to Use the Etching Templates
 
