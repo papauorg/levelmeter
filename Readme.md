@@ -37,4 +37,6 @@ To start developing clone this repository, open the folder in vscode and use the
 ### Fonts
 This repo contains and uses the following fonts:
 - BigShoulderStencilText (OFL) - https://github.com/xotypeco/big_shoulders
+
+### Others
 - Icon - https://www.freepic.com
