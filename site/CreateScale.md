@@ -50,3 +50,8 @@ have a look at already existing scale definitions and their resulting svgs for i
 If you are done editing the definition file you can use the VSCode Task `Generate scale`. Select your newly created file and the tool should now create a new svg scale for you. You can edit the definition and repeat the process until you are satisfied.
 
 When the scale is ready, commit the definition and the svg file and create a pull request for your changes to share it with others. If you do so make sure you use a font with a licence that permits this. Also stencil fonts are preferrable because applying the scales do not require transfer tape this way.
+
+# Request a new scale
+If you are not sure how to proceed you may also request new scales by using the github projects issue template. This is not as flexible and fast and requires the help of someone else, but maybe you're lucky ;).
+
+<a href="{{ site.data.githubinfo.repositoryUrl }}/issues/new/choose" target="_blank">Click here to create a new request</a>

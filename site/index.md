@@ -5,6 +5,9 @@
 layout: page
 ---
 
+![levelmeter logo](/assets/img/icon.png){:style="display:block; margin-left:auto; margin-right:auto; max-height: 300px;"}
+<p style="color:gray; font-size:80%; text-align:center">Icon by https://frepic.com</p>
+
 
 ## Find the Right Etching Template for Your Brewing Containers
 
