@@ -60,7 +60,7 @@ public class CylindricGraduationMarkCalculator
             {
                 Height = Length.From(setting.Height, LengthUnit),
                 Length = Length.From(setting.Length, LengthUnit),
-                Position = (Length.FromMillimeters(setting.Indentation), currentHeight * -1),
+                Position = (Length.From(setting.Indentation, LengthUnit), currentHeight * -1),
                 Text = PrepareText(setting, currentVolume, maxVolume),
                 Volume = currentVolume,
                 Font = setting.Font
