@@ -18,7 +18,7 @@ The already generated or created scales can be found under the [scales/svgs](./s
 This repo also contains a jekyll website where you can find a list of available scales that is easier to look through than the svg files. 
 Also you'll find instructions on how to create new scales and how they can typically be applied.
 
-The website is hosted via github pages and can be reached here: [https://papauorg.github.io/levelmeter](http://papauorg.github.io/repository)
+The website is hosted via github pages and can be reached here: [https://papauorg.github.io/levelmeter](http://papauorg.github.io/levelmeter)
 
 ## 🤖 Dotnet tool levelmeter
 Scales can be created by writing definition files and then running the small tool. It will create an svg file with the scale. See the [documentation](https://papauorg.github.io/levelmeter/create) for more detailed instructions.
