@@ -1,0 +1,37 @@
+{
+  "$schema": "./schemas/scale-config",
+  "scale-config": {
+    "containerForm": "cylinder",
+    "lengthUnit": "mm",
+    "volumeUnit": "l",
+    "diameter": 500,
+    "height": 510,
+    "minVolume": 2,
+    "maxVolume": 100,
+    "output": "./scales/svgs/{0}.svg",
+    "description": "Scale for 500mm diameter cylindric container. 2-100 l in 2 l intervals with text every 10 l.",
+    "sucessfullyAppliedTo": "",
+    "requiresTransferTape": false,
+    "graduationMarkSettings": [
+      {
+        "interval": 2,
+        "length": 10,
+        "height": 1.5,
+        "indentation": 0,
+        "textTemplate": ""
+      },
+      {
+        "interval": 10,
+        "length": 25,
+        "height": 1.5,
+        "font": {
+          "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
+          "size": 8,
+          "offsetX": -2,
+          "offsetY": -5,
+          "textAlignment": "Right"
+        }
+      }
+    ]
+  }
+}
