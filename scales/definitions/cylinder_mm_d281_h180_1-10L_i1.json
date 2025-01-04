@@ -1,0 +1,37 @@
+{
+    "$schema": "./schemas/scale-config",
+    "scale-config": {
+        "containerForm": "cylinder",
+        "lengthUnit": "mm",
+        "volumeUnit": "l",
+        "diameter": 281,
+        "height": 180,
+        "minVolume": 1,
+        "maxVolume": 10,
+        "output": "./scales/svgs/{0}.svg",
+        "description": "old 10 L pot",
+        "sucessfullyAppliedTo": "",
+        "requiresTransferTape": false,
+        "graduationMarkSettings": [
+            {
+                "interval": 1,
+                "length": 10,
+                "height": 1.5,
+                "indentation": 0,
+                "textTemplate": ""
+            },
+            {
+                "interval": 5,
+                "length": 25,
+                "height": 1.5,
+                "font": {
+                    "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
+                    "size": 8,
+                    "offsetX": -2,
+                    "offsetY": -5,
+                    "textAlignment": "Right"
+                }
+            }
+        ]
+    }
+}
