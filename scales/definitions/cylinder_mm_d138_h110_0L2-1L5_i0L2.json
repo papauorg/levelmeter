@@ -3,25 +3,25 @@
     "scale-config": {
         "containerForm": "cylinder",
         "lengthUnit": "mm",
-        "volumeUnit": "ml",
+        "volumeUnit": "dl",
         "diameter": 138,
         "height": 110,
-        "minVolume": 200,
-        "maxVolume": 1500,
+        "minVolume": 2,
+        "maxVolume": 15,
         "output": "./scales/svgs/{0}.svg",
         "description": "wenco Milkpot",
         "sucessfullyAppliedTo": "",
         "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
-                "interval": 100,
+                "interval": 1,
                 "length": 10,
                 "height": 1.5,
                 "indentation": 0,
                 "textTemplate": ""
             },
             {
-                "interval": 500,
+                "interval": 5,
                 "length": 25,
                 "height": 1.5,
                 "font": {
