@@ -39,6 +39,9 @@ body:
       options:
         - "l"
         - "gal (U.S.)"
+        - "ml"
+        - "cl"
+        - "dl"
       default: 0
   - type: input
     id: diameter

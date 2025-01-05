@@ -1,0 +1,37 @@
+{
+    "$schema": "./schemas/scale-config",
+    "scale-config": {
+        "containerForm": "cylinder",
+        "lengthUnit": "mm",
+        "volumeUnit": "l",
+        "diameter": 370,
+        "height": 330,
+        "minVolume": 2,
+        "maxVolume": 30,
+        "output": "./scales/svgs/{0}.svg",
+        "description": "Scale for 370 mm diameter cylindric container. 1-30 l in 1 l intervals with text every 5 l.",
+        "sucessfullyAppliedTo": "Sansone Edelstahlbehälter 18/10 30 Liter",
+        "requiresTransferTape": false,
+        "graduationMarkSettings": [
+            {
+                "interval": 1,
+                "length": 10,
+                "height": 1.5,
+                "indentation": 0,
+                "textTemplate": ""
+            },
+            {
+                "interval": 5,
+                "length": 30,
+                "height": 1.5,
+                "font": {
+                    "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
+                    "size": 8,
+                    "offsetX": -2,
+                    "offsetY": -5,
+                    "textAlignment": "Right"
+                }
+            }
+        ]
+    }
+}

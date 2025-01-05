@@ -25,7 +25,7 @@
         },
         "volumeUnit": {
           "type": "string",
-          "enum": ["l", "gal (U.S.)"],
+          "enum": ["l", "gal (U.S.)", "ml", "cl", "dl"],
           "description": "Unit of volume for the given measurements and output on scale."
         },
         "diameter": {

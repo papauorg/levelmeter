@@ -1,0 +1,37 @@
+{
+    "$schema": "./schemas/scale-config",
+    "scale-config": {
+        "containerForm": "cylinder",
+        "lengthUnit": "mm",
+        "volumeUnit": "ml",
+        "diameter": 70,
+        "height": 82,
+        "minVolume": 10,
+        "maxVolume": 200,
+        "output": "./scales/svgs/{0}.svg",
+        "description": "Scale for 70 mm diameter cylindric container. 1-200 ml in 20 ml intervals with text every 100 ml.",
+        "sucessfullyAppliedTo": "Steel Mug",
+        "requiresTransferTape": false,
+        "graduationMarkSettings": [
+            {
+                "interval": 20,
+                "length": 8,
+                "height": 1.3,
+                "indentation": 0,
+                "textTemplate": ""
+            },
+            {
+                "interval": 100,
+                "length": 30,
+                "height": 1.3,
+                "font": {
+                    "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
+                    "size": 8,
+                    "offsetX": -2,
+                    "offsetY": -5,
+                    "textAlignment": "Right"
+                }
+            }
+        ]
+    }
+}
