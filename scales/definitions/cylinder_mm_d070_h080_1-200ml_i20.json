@@ -27,7 +27,7 @@
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
                     "size": 8,
-                    "offsetX": 0,
+                    "offsetX": -2,
                     "offsetY": -5,
                     "textAlignment": "Right"
                 }
