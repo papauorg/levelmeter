@@ -9,8 +9,8 @@
         "minVolume": 2,
         "maxVolume": 30,
         "output": "./scales/svgs/{0}.svg",
-        "description": "Sansone Edelstahlbehälter 18/10 30 Liter",
-        "sucessfullyAppliedTo": "",
+        "description": "Scale for 370 mm diameter cylindric container. 1-30 l in 1 l intervals with text every 5 l.",
+        "sucessfullyAppliedTo": "Sansone Edelstahlbehälter 18/10 30 Liter",
         "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
@@ -22,7 +22,7 @@
             },
             {
                 "interval": 5,
-                "length": 25,
+                "length": 30,
                 "height": 1.5,
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",

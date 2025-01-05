@@ -9,8 +9,8 @@
         "minVolume": 2,
         "maxVolume": 15,
         "output": "./scales/svgs/{0}.svg",
-        "description": "wenco Milkpot",
-        "sucessfullyAppliedTo": "",
+        "description": "Scale for 138 mm diameter cylindric container. 1-15 dl in 1 dl intervals with text every 5 dl.",
+        "sucessfullyAppliedTo": "Wenco Milkpot",
         "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
@@ -22,12 +22,12 @@
             },
             {
                 "interval": 5,
-                "length": 25,
+                "length": 30,
                 "height": 1.5,
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
                     "size": 8,
-                    "offsetX": 10,
+                    "offsetX": -2,
                     "offsetY": -5,
                     "textAlignment": "Right"
                 }

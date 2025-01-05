@@ -22,7 +22,7 @@
             },
             {
                 "interval": 5,
-                "length": 25,
+                "length": 30,
                 "height": 1.5,
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",

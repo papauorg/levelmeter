@@ -9,8 +9,8 @@
         "minVolume": 1,
         "maxVolume": 10,
         "output": "./scales/svgs/{0}.svg",
-        "description": "old 10 L pot",
-        "sucessfullyAppliedTo": "",
+        "description": "Scale for 281 diameter cylindric container. 1-10 l in 1 l intervals with text every 2 l.",
+        "sucessfullyAppliedTo": "10 liter non-induction Ikea pot",
         "requiresTransferTape": false,
         "graduationMarkSettings": [
             {
@@ -21,8 +21,8 @@
                 "textTemplate": ""
             },
             {
-                "interval": 5,
-                "length": 25,
+                "interval": 2,
+                "length": 27,
                 "height": 1.5,
                 "font": {
                     "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
