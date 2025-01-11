@@ -1,132 +1,129 @@
 using System.Collections.Concurrent;
+using System.ComponentModel;
+using System.Drawing;
+using System.Text;
 using System.Threading.Tasks.Sources;
 using System.Xml;
 
+using Papau.Levelmeter.SvgHelper;
+
+using SkiaSharp;
+
 using UnitsNet;
 using UnitsNet.Units;
-
-using VectSharp;
-using VectSharp.SVG;
 
 namespace Papau.Levelmeter.LevelMeter;
 
 public class SvgScalePainter
 {
-    private double _topTextOverflow = 0;
-    private double _bottomTextOverflow = 0;
+    private readonly Dictionary<GraduationMarkSettings, SvgElement> _settingsToDefinitionMap = [];
 
-    public Task PaintAsync(GraduationMark[] graduationMarks, Stream outputStream, CancellationToken cancellationToken)
+    public async Task PaintAsync(GraduationMark[] graduationMarks, GraduationMarkSettings[] settings, Stream outputStream, CancellationToken cancellationToken)
     {
-        _topTextOverflow = 0;
-
         if (!graduationMarks.Any())
-            return Task.CompletedTask;
+            return;
 
-        var svgPage = new Page(1, 1)
+        var svg = new SvgModel()
         {
-            Background = Colours.White
+            Background = Color.White
         };
+
+        // Add definitions for proper naming in svg file
+        for (var i = 0; i < settings.Length; ++i)
+        {
+            var markerSize = new SizeF((float)settings[i].Length, (float)settings[i].Height);
+            _settingsToDefinitionMap[settings[i]] = svg.AddDefinition(new SvgRectangle { Id = $"interval_{i}", Size = markerSize, Fill = "black" });
+        }
 
         var unit = LengthUnit.Millimeter;
         foreach (var mark in graduationMarks.Reverse())
         {
-            DrawGraduationMark(svgPage, mark);
+            DrawGraduationMark(svg, mark);
             unit = mark.Length.Unit;
         }
-        
+
         var padding = Length.FromMillimeters(5).ToUnit(unit).Value;
-        PaintCuttingRectangle(padding, graduationMarks, svgPage);
+        svg.Padding = new SizeF((float)padding, (float)padding);
 
-        var svgDoc = svgPage.SaveAsSVG(SVGContextInterpreter.TextOptions.ConvertIntoPaths);
-        SetSvgDimensionsInXml(svgPage, unit, svgDoc);
-        svgDoc.Save(outputStream);
-
-        return Task.CompletedTask;
+        await svg.SaveToStream(outputStream, unit, cancellationToken).ConfigureAwait(false);
     }
 
-    private void PaintCuttingRectangle(double padding, GraduationMark[] graduationMarks, Page svgPage)
-    {
-        svgPage.Crop();
-        var page = svgPage.Graphics.GetBounds();
+    private readonly static ConcurrentDictionary<string, SKTypeface> FontCache = [];
 
-        var topMarker = graduationMarks.MinBy(m => m.Position.Y)!;
-        var topYBound = (_topTextOverflow + (topMarker.Height.Value / 2)) * -1;
-        var bottomMarker = graduationMarks.MaxBy(m => m.Position.Y)!;
-        var bottomYBound = _bottomTextOverflow;
-
-        // top left corner moved by padding to top and left
-        var pos = new Point(0 - padding, topYBound - padding);
-
-        var size = new Size(page.Size.Width + 2 * padding, page.Size.Height + bottomYBound + 2 * padding);
-        svgPage.Graphics.StrokeRectangle(pos, size, Colours.Red, 0.1);
-
-        svgPage.Crop();
-    }
-
-    private static void SetSvgDimensionsInXml(Page page, LengthUnit unit, XmlDocument svgDoc)
-    {
-        var size = page.Graphics.GetBounds();
-
-        var widthAttribute = svgDoc.CreateAttribute("width");
-        widthAttribute.Value = $"{size.Size.Width}{Length.GetAbbreviation(unit)}";
-        var heightAttribute = svgDoc.CreateAttribute("height");
-        heightAttribute.Value = $"{size.Size.Height}{Length.GetAbbreviation(unit)}";
-        var rootAttributes = svgDoc.GetElementsByTagName("svg")[0]!.Attributes!;
-        rootAttributes.Append(widthAttribute);
-        rootAttributes.Append(heightAttribute);
-    }
-
-    private readonly static ConcurrentDictionary<string, FontFamily?> FontCache = [];
-
-    private void DrawGraduationMark(Page scale, GraduationMark mark)
+    private void DrawGraduationMark(SvgModel scale, GraduationMark mark)
     {
         // assume middle of the marker marks the spot. This helps avoiding differences in spacing due to different marker heights.
-        var markerPos = new Point(mark.Position.X.Value, mark.Position.Y.Value - mark.Height.Value / 2);
-        var markerSize = new Size(mark.Length.Value, mark.Height.Value);
-        scale.Graphics.FillRectangle(markerPos, markerSize, Colours.Black, "mark" + mark.Volume.ToString());
+        var markerPos = new PointF((float)mark.Position.X.Value, (float)(mark.Position.Y.Value - mark.Height.Value / 2));
+
+        scale.DrawRectangleUsingDefinition(markerPos, _settingsToDefinitionMap[mark.ReferenceSetting], $"mark_{mark.Volume.Value}");
 
         if (!string.IsNullOrWhiteSpace(mark.Text))
         {
             var font = GetFont(mark);
-            var textSize = font.MeasureText(mark.Text);
-            var textPosition = GetTextPosition(mark, markerPos, textSize);
+            var textPath = CreateTextPath(mark, font);
+            var textSize = new SizeF(textPath.Bounds.Size.Width, textPath.Bounds.Size.Height);
+            var textPosition = GetTextPosition(mark, markerPos, textSize, font);
 
-            _topTextOverflow = Math.Max(_topTextOverflow, markerPos.Y - textPosition.Y + (textSize.Height / 2));
-            _bottomTextOverflow = Math.Max(_bottomTextOverflow, markerPos.Y - textPosition.Y - (textSize.Height / 2));
+            scale.FillPath(textPath, textPosition, Color.Black);
 
-            scale.Graphics.FillText(textPosition, mark.Text, font, Colours.Black, TextBaselines.Middle, "text" + mark.Volume.ToString());
+            // bounding box for debugging
+            // scale.StrokeRectangle(textPosition, textSize, Color.Green, 0.05f);
         }
     }
 
-    private static Point GetTextPosition(GraduationMark mark, Point markerPos, Size textSize)
+    private static SKPath CreateTextPath(GraduationMark mark, SKFont font)
+    {
+        using var textPath = font.GetTextPath(mark.Text);
+
+        // Get the current bounds of the path
+        SKRect currentBounds = textPath.Bounds;
+
+        // Calculate the translation to move the top-left corner to (0, 0)
+        float translateX = -currentBounds.Left;
+        float translateY = -currentBounds.Top;
+
+        // Create a transformation matrix for cropping
+        SKMatrix cropMatrix = SKMatrix.CreateTranslation(translateX, translateY);
+
+        // Apply the transformation to the path
+        var croppedPath = new SKPath();
+        textPath.Transform(cropMatrix, croppedPath);
+        return croppedPath;
+    }
+
+    private static PointF GetTextPosition(GraduationMark mark, PointF markerPos, SizeF textSize, SKFont font)
     {
         var fontX = mark.Position.X.Value + mark.Length.Value + mark.Font.OffsetX;
+
+        // the position of the text is calculated by the top left corner of the path.
+        // but we want to align the text by its baseline so we need to calculate the
+        // offset between the top and the baseline
+        var fontBaselineOffset = font.Metrics.StrikeoutPosition + font.Metrics.StrikeoutThickness / 2;
+        if (!fontBaselineOffset.HasValue)
+            fontBaselineOffset = (textSize.Height / 2) * -1; // fallback to half height of the path
+
         // align in the middle of the marker
-        var fontY = markerPos.Y + mark.Height.Value / 2 + mark.Font.OffsetY;
+        var fontY = markerPos.Y + mark.Height.Value / 2 + mark.Font.OffsetY + fontBaselineOffset;
 
         // change text alignment
         fontX = ApplyAlignment(fontX, textSize, mark.Font.TextAlignment);
 
-        return new Point(fontX, fontY);
+        return new PointF((float)fontX, (float)fontY);
     }
 
-    private static Font GetFont(GraduationMark mark)
+    private static SKFont GetFont(GraduationMark mark)
     {
-        var fontFamily = FontCache.GetOrAdd(mark.Font.Family, f =>
+        var fontFamily = FontCache.GetOrAdd(mark.Font.Family, f => SKTypeface.FromFile(mark.Font.Family));
+
+        return new SKFont
         {
-            var result = FontFamily.ResolveFontFamily(f);
-
-            if (result is null || result.TrueTypeFile is null)
-                throw new InvalidOperationException($"Font '{mark.Font}' not found or not a valid font!");
-
-            return result;
-        });
-
-        var font = new Font(fontFamily, mark.Font.Size);
-        return font;
+            Typeface = fontFamily,
+            Size = (float)mark.Font.Size,
+            Edging = SKFontEdging.Antialias
+        };
     }
 
-    private static double ApplyAlignment(double xPos, Size textSize, GraduationMarkSettings.TextAlignment textAlignment)
+    private static double ApplyAlignment(double xPos, SizeF textSize, GraduationMarkSettings.TextAlignment textAlignment)
     {
         return textAlignment switch
         {

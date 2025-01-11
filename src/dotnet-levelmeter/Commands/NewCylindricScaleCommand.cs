@@ -43,7 +43,7 @@ public class NewCylindricScaleCommand
         var openStream = stopwatch.ElapsedMilliseconds;
 
         var painter = new SvgScalePainter();
-        await painter.PaintAsync(graduationMarks, outputStream, cancellationToken).ConfigureAwait(false);
+        await painter.PaintAsync(graduationMarks, Options.GraduationMarkSettings, outputStream, cancellationToken).ConfigureAwait(false);
 
         var painted = stopwatch.ElapsedMilliseconds;
         await Console.Error.WriteLineAsync($"Finished! (Calculation: {calculationTime}, Stream: {openStream}, Paint: {painted})").ConfigureAwait(false);

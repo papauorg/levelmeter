@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm AS dev
-RUN apt-get update -y && apt install -y vim pipx ruby-full build-essential zlib1g-dev
+RUN apt-get update -y && apt install -y vim pipx ruby-full build-essential zlib1g-dev libfontconfig
 
 RUN dotnet tool install -g dotnet-format \
  && dotnet tool install -g dotnet-outdated-tool
@@ -23,7 +23,6 @@ RUN gem install jekyll bundler
 USER root
 
 
-
 FROM dev as build
 WORKDIR /build
 COPY . .
@@ -31,6 +30,7 @@ RUN find ./scales/definitions/*.json | xargs -I % check-jsonschema % --schemafil
 RUN dotnet build --configuration=Release && dotnet test --no-build --configuration=Release
 
 FROM mcr.microsoft.com/dotnet/runtime:8.0
+RUN apt-get update && apt-get install -y libfontconfig
 WORKDIR /app
 COPY --from=build /build/src/dotnet-levelmeter/bin/Release/net8.0 .
 WORKDIR /config
