@@ -16,9 +16,7 @@ namespace Papau.Levelmeter.LevelMeter;
 
 public class SvgScalePainter
 {
-    private readonly Dictionary<GraduationMarkSettings, SvgElement> _settingsToDefinitionMap = [];
-
-    public async Task PaintAsync(GraduationMark[] graduationMarks, GraduationMarkSettings[] settings, Stream outputStream, CancellationToken cancellationToken)
+    public async Task PaintAsync(GraduationMark[] graduationMarks, Stream outputStream, CancellationToken cancellationToken)
     {
         if (!graduationMarks.Any())
             return;
@@ -27,13 +25,6 @@ public class SvgScalePainter
         {
             Background = Color.White
         };
-
-        // Add definitions for proper naming in svg file
-        for (var i = 0; i < settings.Length; ++i)
-        {
-            var markerSize = new SizeF((float)settings[i].Length, (float)settings[i].Height);
-            _settingsToDefinitionMap[settings[i]] = svg.AddDefinition(new SvgRectangle { Id = $"interval_{i}", Size = markerSize, Fill = "black" });
-        }
 
         var unit = LengthUnit.Millimeter;
         foreach (var mark in graduationMarks.Reverse())
@@ -55,7 +46,7 @@ public class SvgScalePainter
         // assume middle of the marker marks the spot. This helps avoiding differences in spacing due to different marker heights.
         var markerPos = new PointF((float)mark.Position.X.Value, (float)(mark.Position.Y.Value - mark.Height.Value / 2));
 
-        scale.DrawRectangleUsingDefinition(markerPos, _settingsToDefinitionMap[mark.ReferenceSetting], $"mark_{mark.Volume.Value}");
+        scale.FillRectangle(markerPos, new SizeF((float)mark.Length.Value, (float)mark.Height.Value), Color.Black, $"mark_{mark.Volume.Value}");
 
         if (!string.IsNullOrWhiteSpace(mark.Text))
         {

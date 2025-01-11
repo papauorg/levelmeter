@@ -77,34 +77,6 @@ public class SvgModelTests
             svg.Element(SvgModel.Xmlns + "style").Should().NotBeNull().And.Subject.Value.Should().Contain("background: #ffffff;");
         }
 
-        [Fact]
-        public async Task Result_References_Definition_If_Rectangle_Was_Added_By_Definition()
-        {
-            var model = new SvgModel();
-            var definition = model.AddDefinition(new SvgRectangle { Id = "interval_0", Size = new SizeF(10, 20) });
-
-            model.DrawRectangleUsingDefinition(new PointF(17, 27), definition, "mark_0");
-
-            var svg = await GetDocumentRoot(model);
-            var defs = svg.Element(SvgModel.Xmlns + "defs");
-            defs.Should().NotBeNull();
-
-            defs!.DescendantNodes().Should().ContainSingle();
-            var rect = defs!.Element(SvgModel.Xmlns + "rect")!;
-            rect.Attributes().Should().HaveCount(3);
-            rect.Attribute("width")?.Value.Should().Be("10");
-            rect.Attribute("height")?.Value.Should().Be("20");
-            rect.Attribute("id")?.Value.Should().Be("interval_0");
-
-            var scaleGroup = svg.Element(SvgModel.Xmlns + "g");
-            var usage = scaleGroup?.Element(SvgModel.Xmlns + "use");
-            usage.Should().NotBeNull();
-            usage?.Attribute(SvgModel.Xmlns + "href")?.Value.Should().Be("#interval_0");
-            usage?.Attribute(SvgModel.Xmlns_xlink + "href")?.Value.Should().Be("#interval_0");
-            usage?.Attribute("x")?.Value.Should().Be("17");
-            usage?.Attribute("y")?.Value.Should().Be("27");
-        }
-
         public static IEnumerable<object[]> EnclosingRectangleSamples()
         {
             return [
@@ -124,11 +96,8 @@ public class SvgModelTests
                 Padding = SizeF.Empty
             };
 
-            definition = definition with { Id = "interval_0" };
-            definition = model.AddDefinition(definition);
-
             foreach (var (usage, i) in usages.Select((v, i) => (v, i)))
-                model.DrawRectangleUsingDefinition(usage, definition, $"mark_{i}");
+                model.FillRectangle(usage, definition.Size, Color.Black, $"mark_{i}");
 
             var svg = await GetDocumentRoot(model);
 

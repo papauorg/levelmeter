@@ -30,7 +30,6 @@ public abstract record SvgElement
             GetAttributeIfNotEmpty("stroke", Stroke)
         );
 
-
         if (StrokeWidth > 0)
             e.Add(GetAttributeIfNotEmpty("stroke-width", StrokeWidth.ToString(CultureInfo.InvariantCulture)));
 

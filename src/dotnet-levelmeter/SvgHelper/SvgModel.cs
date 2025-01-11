@@ -31,25 +31,14 @@ public class SvgModel
     public Color Background { get; set; } = Color.White;
     public SizeF Padding { get; set; } = new(5, 5);
 
-    public SvgElement AddDefinition(SvgElement elementDefinition)
+    public void FillRectangle(PointF markerPos, SizeF size, Color color, string name)
     {
-        if (string.IsNullOrWhiteSpace(elementDefinition.Id))
-            throw new InvalidOperationException("A SVG definition element requires an Id");
-
-        if (_definitions.Any(d => d.Id.Equals(elementDefinition.Id)))
-            throw new InvalidOperationException("An element with the same id is already present in the svg definitions.");
-
-        _definitions.Add(elementDefinition);
-
-        return elementDefinition;
-    }
-
-    public void DrawRectangleUsingDefinition(PointF markerPos, SvgElement definition, string name)
-    {
-        var reference = SvgUse.From(definition) with
+        var reference = new SvgRectangle()
         {
             Id = name,
-            Position = markerPos
+            Position = markerPos,
+            Fill = GetSvgColor(color),
+            Size = size,
         };
 
         _elements.Add(reference);
