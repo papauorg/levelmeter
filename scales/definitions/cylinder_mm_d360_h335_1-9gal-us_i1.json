@@ -22,7 +22,7 @@
           "family": "./fonts/BigShoulderStencilText/static/BigShouldersStencilText-ExtraBold.ttf",
           "size": 8,
           "offsetX": -2,
-          "offsetY": -5,
+          "offsetY": -7,
           "textAlignment": "Right"
         }
       }
