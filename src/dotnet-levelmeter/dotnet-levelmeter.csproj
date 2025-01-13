@@ -29,7 +29,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="UnitsNet" Version="5.52.0" />
-    <PackageReference Include="VectSharp.SVG" Version="1.9.0" />
+    <PackageReference Include="SkiaSharp" Version="3.116.1"/>
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.116.1" />
   </ItemGroup>
 
   <ItemGroup>

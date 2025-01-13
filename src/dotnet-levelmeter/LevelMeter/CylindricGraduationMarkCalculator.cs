@@ -63,7 +63,8 @@ public class CylindricGraduationMarkCalculator
                 Position = (Length.From(setting.Indentation, LengthUnit), currentHeight * -1),
                 Text = PrepareText(setting, currentVolume, maxVolume),
                 Volume = currentVolume,
-                Font = setting.Font
+                Font = setting.Font,
+                ReferenceSetting = setting
             };
 
             results[currentVolume] = mark;
@@ -91,7 +92,7 @@ public class CylindricGraduationMarkCalculator
         // use the maxVolume for even end of the scale
         if (maxVolume.Equals(maximumVolumeByHeight, maxVolume / 100))
             return maxVolume.ToUnit(VolumeUnit);
-        
+
         // limit to max volume if the volume by height would be more
         if (maxVolume < maximumVolumeByHeight)
             return maxVolume.ToUnit(VolumeUnit);

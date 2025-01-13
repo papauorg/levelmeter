@@ -33,4 +33,9 @@ public record GraduationMark
     /// Font name or path to font file. Defines the font to write texts for the graduation mark.
     /// </summary>
     public required GraduationMarkSettings.FontSettings Font { get; init; }
+
+    /// <summary>
+    /// References the settings used to calculate this graduation mark
+    /// </summary>
+    public required GraduationMarkSettings ReferenceSetting { get; init; }
 }

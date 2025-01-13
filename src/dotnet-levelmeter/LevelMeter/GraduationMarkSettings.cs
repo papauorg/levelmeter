@@ -43,7 +43,7 @@ public record GraduationMarkSettings
     {
         if (Length <= 0)
             throw new ArgumentOutOfRangeException(nameof(Length), Length, "Value must be greater than 0;");
-        
+
         if (Height <= 0)
             throw new ArgumentOutOfRangeException(nameof(Height), Height, "Value must be greater than 0");
     }
