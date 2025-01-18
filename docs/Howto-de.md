@@ -34,12 +34,19 @@ Um korrekte Werte anzuzeigen muss die Skala auf einer bestimmten Höhe in dem Be
 
 Stelle den Topf auf eine ebene Fläche und markiere dir den Wasserstand in der Nähe der Stelle, an der du die Skala anbringen möchtest. Es sollte möglich sein deine Skala später an dieser Markierung auszurichten.
 
+### Methode 2 Klebestreifen
 Hier als Beispiel: 
 5 Liter Wasser, markiert mit 2 Kanten von kurzen Klebestreifen, danach die Kanten mit einem Maßband verbunden und an einer passenden Stelle eine Markierung mit einem Stift gesetzt.
 
 ![Wasserstand mit Klebestreifen markieren]({{ site.baseurl }}/assets/img/howto-reference-1.jpg)
 ![Markierung mit Stift]({{ site.baseurl }}/assets/img/howto-reference-2.jpg)
 
+### Methode Lineal
+Anstatt die Markierung direkt am Wasserstand anzubringen, kannst du auch oberhalb ein Kreppband anbringen, und mit einem Lineal bei einem fixen Abstand zum Wasserstand (z.B. 10cm auf dem Lineal) eine Markierung auf dem Kreppband machen. Danach kannst du das Wasser aus dem Topf gießen und von der Markierung wieder den gleichen Abstand nach unten abmessen und kannst so den vorherigen Füllstand markieren. Machst du das 2 Mal an verschiedenen Stellen, kannst du dann auch eine Linie ziehen.
+
+![Wasserstand mit Lineal markieren]({{ site.baseurl }}/assets/img/howto-reference-3.jpg)
+
+### Methode direkt
 Ggf. reicht dir auch ein Klebestreifen, der gerade aufgeklebt ist oder ein Stift, der auch an der Wasserkante gut erkennbar malt - so wie es für dich am einfachsten geht.
 
 ## 5. Skala aufkleben

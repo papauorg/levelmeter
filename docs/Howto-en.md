@@ -34,12 +34,19 @@ To display correct values, the scale must be placed at a certain height in the c
 
 Place the pot on a flat surface and mark the water level near where you want to place the scale. It should be possible to align your scale with this mark later.
 
+### Method with two tape strips
 Here is an example: 
 5 liters of water, marked with 2 edges of short strips of adhesive tape, then connect the edges with a tape measure and make a mark with a pencil at a suitable point.
 
 ![Mark water level with adhesive tape]({{ site.baseurl }}/assets/img/howto-reference-1.jpg)
 ![Mark with pen]({{ site.baseurl }}/assets/img/howto-reference-2.jpg)
 
+### Method with a ruler
+Instead of placing the mark directly on the water level, you can also attach masking tape above it and use a ruler to make a mark on the masking tape at a fixed distance from the water level (e.g. 10 cm on the ruler). You can then pour the water out of the pot and measure the same distance down from the marked point and mark the previous fill level. If you do this twice in different places, you can also draw a line.
+
+![Mark water level with ruler]({{ site.baseurl }}/assets/img/howto-reference-3.jpg)
+
+### Method mark directly
 If necessary, you can also use an adhesive strip that has just been stuck on or a pencil that also draws a clearly recognizable mark on the edge of the water - whichever is easiest for you.
 
 ## 5. Apply the scale
