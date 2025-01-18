@@ -10,7 +10,7 @@
     "maxVolume": 15,
     "output": "./scales/svgs/{0}.svg",
     "description": "Scale for 280mm diameter cylindric container. 1-15 l in 1 l intervals with text every 5 l.",
-    "sucessfullyAppliedTo": "",
+    "sucessfullyAppliedTo": "Royal Catering Kochtopf Induktion 17 L, Modell: RCST-17E3",
     "requiresTransferTape": false,
     "graduationMarkSettings": [
       {
