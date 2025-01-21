@@ -50,8 +50,9 @@ Instead of placing the mark directly on the water level, you can also attach mas
 If necessary, you can also use an adhesive strip that has just been stuck on or a pencil that also draws a clearly recognizable mark on the edge of the water - whichever is easiest for you.
 
 ## 5. Apply the scale
-Take your prepared scale and apply it to your container to match the reference mark you determined previously (in the example above it is the 5 l mark). Make sure the scale is applied in the correct angle. Additional markings may help.
+Take your prepared scale and apply it to your container to match the reference mark you determined previously (in the example above it is the 5 l mark). Make sure the scale is applied in the correct angle. Additional markings may help. A folding rule can also help with alignment.
 
+![Align scale]({{ site.baseurl }}/assets/img/howto-apply-scale-2.jpg)
 ![Stick on scale]({{ site.baseurl }}/assets/img/howto-apply-scale.jpg)
 
 *Caution:* Try to position the scale correctly the first time. There is a risk of distorting or tearing the foil when trying to remove it!

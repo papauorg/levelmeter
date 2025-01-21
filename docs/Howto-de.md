@@ -50,8 +50,9 @@ Anstatt die Markierung direkt am Wasserstand anzubringen, kannst du auch oberhal
 Ggf. reicht dir auch ein Klebestreifen, der gerade aufgeklebt ist oder ein Stift, der auch an der Wasserkante gut erkennbar malt - so wie es für dich am einfachsten geht.
 
 ## 5. Skala aufkleben
-Nimm deine vorbereitete Skala und klebe Sie passend zu der zuvor ermittelten Referenzmarkierung in deinen Behälter (in obigem Beispiel ist es die 5l Markierung). Achte darauf die Skala gerade einzukleben. Dabei helfen ggf. ein Winkel und weitere Markierungen.
+Nimm deine vorbereitete Skala und klebe Sie passend zu der zuvor ermittelten Referenzmarkierung in deinen Behälter (in obigem Beispiel ist es die 5l Markierung). Achte darauf die Skala gerade einzukleben. Dabei helfen ggf. ein Winkel und weitere Markierungen. Auch ein Meterstab/Zollstock kann beim Ausrichten helfen.
 
+![Skala ausrichten]({{ site.baseurl }}/assets/img/howto-apply-scale-2.jpg)
 ![Skala aufkleben]({{ site.baseurl }}/assets/img/howto-apply-scale.jpg)
 
 *Achtung:* Versuche die Skala gleich beim ersten Mal richtig zu platzieren. Beim Ablösen besteht die Gefahr die Folie zu verzerren oder zu zerreißen!
